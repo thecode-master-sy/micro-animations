@@ -3,7 +3,7 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import { Button } from "./Button";
 import { MenutItem, ListItemNumber } from "./MenuItem";
 import { MenuToggle } from "./MenuToogle";
-import { motion } from "framer-motion";
+import { motion, MotionProps } from "framer-motion";
 
 const menuContent = [
 	"what we do",
@@ -105,22 +105,32 @@ export default function SideBar() {
 	});
 
 	useEffect(() => {
-		setDimensions((prev) => ({
-			width: navRef.current?.offsetWidth,
-			height: navRef.current?.offsetHeight,
-		}));
-		if (navRef.current != undefined && navTopRef.current != undefined) {
-			const space = 8 + spaceAroundClip;
-			const clipRight =
-				navRef.current.offsetWidth - navTopRef.current.offsetWidth - space;
-			const clipBottom =
-				navRef.current.offsetHeight - navTopRef.current.offsetHeight - space;
-			// console.log(navRef.current.offsetWidth - navTopRef.current.offsetWidth);
-			/* console.log(
+		const getSizing = () => {
+			setDimensions((prev) => ({
+				width: navRef.current?.offsetWidth,
+				height: navRef.current?.offsetHeight,
+			}));
+			if (navRef.current != undefined && navTopRef.current != undefined) {
+				const space = 8 + spaceAroundClip;
+				const clipRight =
+					navRef.current.offsetWidth - navTopRef.current.offsetWidth - space;
+				const clipBottom =
+					navRef.current.offsetHeight - navTopRef.current.offsetHeight - space;
+				// console.log(navRef.current.offsetWidth - navTopRef.current.offsetWidth);
+				/* console.log(
 				navRef.current.offsetHeight - navTopRef.current.offsetHeight - 32
 			); */
-			setClipValues({ clipBottom, clipRight });
-		}
+				setClipValues({ clipBottom, clipRight });
+			}
+		};
+
+		getSizing();
+
+		window.addEventListener("resize", getSizing);
+
+		return () => {
+			window.removeEventListener("resize", getSizing);
+		};
 	}, []);
 
 	return (
@@ -130,7 +140,10 @@ export default function SideBar() {
 			variants={sidebarVariants}
 			custom={{ spaceAroundClip, clipValues }}
 			animate={isOpen ? "open" : "closed"}
-			className="ml-auto bg-white overflow-hidden pl-8 py-4 pr-4 rounded-md nav-width grid gap-7 border border-menu-background"
+			style={{
+				clipPath: `inset(${spaceAroundClip}px ${spaceAroundClip}px ${clipValues.clipBottom}px ${clipValues.clipRight}px round 6px)`,
+			}}
+			className="relative ml-auto bg-white overflow-hidden pl-8 py-4 pr-4 rounded-md nav-width grid gap-7 border border-menu-background"
 		>
 			<NavigationTop navTopRef={navTopRef} toggle={toggleMenu} />
 			<NavigationMenu isOpen={isOpen} />

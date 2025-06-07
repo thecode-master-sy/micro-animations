@@ -26,6 +26,7 @@ const config = {
         shopping: {
           background: "hsl(var(--shoping-experience-bg))",
           accent: "hsl(var(--shoping-experience-accent))",
+          primary: "hsl(var(--shoping-experience-primary))",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

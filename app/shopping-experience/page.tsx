@@ -6,9 +6,10 @@ import Mouth from "./_components/mouth";
 import { useState } from "react";
 import Control from "./_components/control";
 import { useMotionValue, useAnimation } from "motion/react";
+import { CONTROL_CONSTRAIT } from "./_components/constants";
 
 export default function ShoppingExperience() {
-  const controlX = useMotionValue(0);
+  const controlX = useMotionValue(CONTROL_CONSTRAIT);
 
   return (
     <div className="bg-shopping-background min-h-screen p-4">
@@ -20,10 +21,10 @@ export default function ShoppingExperience() {
           <Info size={20} />
         </span>
       </div>
-      <div className="text-[#153301] text-center flex justify-center text-xl">
+      <div className="text-[#153301] text-center mt-4 flex justify-center text-xl">
         <p>How was your shopping experience?</p>
       </div>
-      <div className="flex justify-center gap-4 mt-10">
+      <div className="flex justify-center gap-4 mt-4">
         <LeftEye controlX={controlX} />
         <RightEye controlX={controlX} />
       </div>

@@ -63,9 +63,9 @@ export default function Control({
   };
 
   return (
-    <div className="w-[340px] border border-black" ref={constraintsRef}>
+    <div className="w-[340px]" ref={constraintsRef}>
       <motion.div
-        className="w-[40px] h-[40px] bg-red-500 rounded-full cursor-grab"
+        className="w-[40px] h-[40px] bg-red-500 rounded-full hover:cursor-grab active:cursor-grabbing"
         drag="x"
         style={{ x: controlX }}
         dragConstraints={constraintsRef}

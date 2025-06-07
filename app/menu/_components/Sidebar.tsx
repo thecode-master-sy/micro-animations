@@ -3,7 +3,7 @@ import { RefObject, useEffect, useRef, useState } from "react";
 import { Button } from "./Button";
 import { MenutItem, ListItemNumber } from "./MenuItem";
 import { MenuToggle } from "./MenuToogle";
-import { motion, MotionProps } from "framer-motion";
+import { motion, MotionProps } from "motion/react";
 
 const menuContent = [
 	"what we do",

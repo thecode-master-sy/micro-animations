@@ -4,9 +4,11 @@ import { shapeOne, shapeOneMorphedTwo, shapeOneMorphedOne } from "../path";
 import SVGMorph from "../svg-morph";
 
 export default function LeftEye({
+  fill,
   controlX,
 }: {
   controlX: MotionValue<number>;
+  fill: MotionValue<string>
 }) {
   return (
     <div>
@@ -21,7 +23,7 @@ export default function LeftEye({
         <path d={shapeOneMorphedOne} fill="#153301" />
         <path d={shapeOneMorphedTwo} fill="#153301" /> */}
         <SVGMorph
-          fill="#153301"
+          fill={fill}
           controlX={controlX}
           paths={[shapeOne, shapeOneMorphedTwo, shapeOneMorphedOne]}
         />

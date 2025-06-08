@@ -16,7 +16,7 @@ export default function SVGMorph({
   controlX,
 }: {
   paths: string[];
-  fill: string;
+  fill: MotionValue<string>;
   controlX: MotionValue<number>;
 }) {
   const progress = useTransform(
@@ -29,5 +29,5 @@ export default function SVGMorph({
     mixer: (a, b) => interpolate(a, b, { maxSegmentLength: 1 }),
   });
 
-  return <motion.path fill={fill} d={path} />;
+  return <motion.path style={{ fill }} d={path} />;
 }

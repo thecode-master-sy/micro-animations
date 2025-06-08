@@ -5,37 +5,83 @@ import { Info, X } from "lucide-react";
 import Mouth from "./_components/mouth";
 import { useState } from "react";
 import Control from "./_components/control";
-import { useMotionValue, useAnimation } from "motion/react";
+import {
+  useMotionValue,
+  useAnimation,
+  useTransform,
+  motion,
+} from "motion/react";
 import { CONTROL_CONSTRAIT } from "./_components/constants";
+import ExperienceText from "./_components/experience-text";
+import SubmitButton from "./_components/submit-button/page";
 
 export default function ShoppingExperience() {
   const controlX = useMotionValue(CONTROL_CONSTRAIT);
+  const backgroundColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#A5BD4C", "#DDA33A", "#FC8054"]
+  );
+  const primaryColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#153301", "#472007", "#6D0A01"]
+  );
+  const accentColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#798E1A", "#AD750E", "#DA4B23"]
+  );
 
   return (
-    <div className="bg-shopping-background min-h-screen p-4">
+    <motion.div className="min-h-screen p-4" style={{ backgroundColor }}>
       <div className="flex items-center justify-between">
-        <span className="flex p-3 bg-shopping-accent rounded-full w-max">
+        <motion.span
+          style={{ backgroundColor: accentColor }}
+          className="flex p-3 rounded-full w-max"
+        >
           <X size={20} />
-        </span>
-        <span className="flex p-3 bg-shopping-accent rounded-full w-max">
+        </motion.span>
+        <motion.span
+          style={{ backgroundColor: accentColor }}
+          className="flex p-3 rounded-full w-max"
+        >
           <Info size={20} />
-        </span>
+        </motion.span>
       </div>
       <div className="text-[#153301] text-center mt-4 flex justify-center text-xl">
         <p>How was your shopping experience?</p>
       </div>
       <div className="flex justify-center gap-4 mt-4">
-        <LeftEye controlX={controlX} />
-        <RightEye controlX={controlX} />
+        <LeftEye controlX={controlX} fill={primaryColor} />
+        <RightEye controlX={controlX} fill={primaryColor} />
       </div>
+
       <div className="flex justify-center">
-        <Mouth controlX={controlX} />
+        <Mouth controlX={controlX} fill={primaryColor} />
+      </div>
+
+      <div className="flex justify-center text-center mt-4">
+        <ExperienceText controlX={controlX} accentColor={accentColor} />
       </div>
 
       <div className="mt-7 flex justify-center">
-        <Control controlX={controlX} />
+        <Control
+          controlX={controlX}
+          primaryColor={primaryColor}
+          accentColor={accentColor}
+          backgroundColor={backgroundColor}
+        />
       </div>
-    </div>
+
+      <div className="mt-20 flex justify-center">
+        <SubmitButton
+          primaryColor={primaryColor}
+          accentColor={accentColor}
+          backgroundColor={backgroundColor}
+        />
+      </div>
+    </motion.div>
   );
 }
 

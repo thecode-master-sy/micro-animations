@@ -15,6 +15,10 @@ export default function SubmitButton({
   backgroundColor: MotionValue<string>;
   setIsAddingNote: Dispatch<SetStateAction<boolean>>;
 }) {
+  const handleClick = () => {
+    console.log("SubmitButton clicked, setting isAddingNote");
+    setIsAddingNote(true);
+  };
   return (
     <div className="w-full">
       <motion.div
@@ -23,8 +27,8 @@ export default function SubmitButton({
       >
         <motion.button
           style={{ color: primaryColor }}
-          onClick={() => setIsAddingNote(true)}
-          className="pl-4 py-[14px] flex-1 font-medium cursor-text"
+          onClick={handleClick}
+          className="pl-4 py-[14px] flex-1 text-left font-medium cursor-text"
         >
           Add note
         </motion.button>

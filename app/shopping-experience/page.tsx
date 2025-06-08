@@ -15,6 +15,7 @@ import {
 import { CONTROL_CONSTRAIT } from "./_components/constants";
 import ExperienceText from "./_components/experience-text";
 import SubmitButton from "./_components/submit-button/page";
+import AddNoteTextArea from "./_components/text-area";
 
 export default function ShoppingExperience() {
   const [isAddingNote, setIsAddingNote] = useState(false);
@@ -35,13 +36,9 @@ export default function ShoppingExperience() {
     ["#798E1A", "#AD750E", "#DA4B23"]
   );
 
-  useEffect(() => {
-    console.log(isAddingNote);
-  }, [isAddingNote]);
-
   return (
     <motion.div
-      className="min-h-screen flex flex-col p-4"
+      className="h-screen flex flex-col p-4 overflow-hidden"
       style={{ backgroundColor }}
     >
       <div className="flex items-center justify-between">
@@ -58,10 +55,23 @@ export default function ShoppingExperience() {
           <Info size={20} />
         </motion.span>
       </div>
-      <motion.div className="flex-1 flex flex-col justify-center">
-        <div className="text-[#153301] text-center flex justify-center text-xl">
-          <p>How was your shopping experience?</p>
-        </div>
+      <div className="flex-1 flex flex-col justify-center">
+        <AnimatePresence>
+          {!isAddingNote && (
+            <motion.div
+              key="text"
+              exit={{ y: "-1000px" }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.5,
+              }}
+              className="text-[#153301] text-center flex justify-center text-xl"
+            >
+              <p>How was your shopping experience?</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="flex justify-center gap-4 mt-4">
           <LeftEye controlX={controlX} fill={primaryColor} />
           <RightEye controlX={controlX} fill={primaryColor} />
@@ -74,8 +84,12 @@ export default function ShoppingExperience() {
         <AnimatePresence>
           {!isAddingNote && (
             <motion.div
-              key="expereince-text"
+              key="experience-text"
               exit={{ x: "-100%", opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.5,
+              }}
               className="flex justify-center overflow-hidden text-center mt-4"
             >
               <ExperienceText controlX={controlX} accentColor={accentColor} />
@@ -83,24 +97,66 @@ export default function ShoppingExperience() {
           )}
         </AnimatePresence>
 
-        <div className="mt-7 flex justify-center">
-          <Control
-            controlX={controlX}
-            primaryColor={primaryColor}
-            accentColor={accentColor}
-            backgroundColor={backgroundColor}
-          />
-        </div>
+        <AnimatePresence>
+          {!isAddingNote && (
+            <motion.div
+              key="control"
+              exit={{ opacity: 0 }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.5,
+              }}
+              className="mt-7 flex justify-center"
+            >
+              <Control
+                controlX={controlX}
+                primaryColor={primaryColor}
+                accentColor={accentColor}
+                backgroundColor={backgroundColor}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <div className="mt-20 flex justify-center">
-          <SubmitButton
-            primaryColor={primaryColor}
-            accentColor={accentColor}
-            backgroundColor={backgroundColor}
-            setIsAddingNote={setIsAddingNote}
-          />
-        </div>
-      </motion.div>
+        <AnimatePresence>
+          {!isAddingNote && (
+            <motion.div
+              key={"submit-button"}
+              className="mt-20 flex justify-center"
+              transition={{
+                ease: "easeInOut",
+                duration: 0.5,
+              }}
+              exit={{ opacity: 0 }}
+            >
+              <SubmitButton
+                primaryColor={primaryColor}
+                accentColor={accentColor}
+                backgroundColor={backgroundColor}
+                setIsAddingNote={setIsAddingNote}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {isAddingNote && (
+            <motion.div
+              key="text-area"
+              initial={{ opacity: 0, y: "10" }}
+              animate={{ opacity: 1, y: "0" }}
+              exit={{ opacity: 0, y: "10" }}
+              transition={{
+                ease: "easeInOut",
+                duration: 0.5,
+              }}
+              className="mt-7 w-full max-w-[500px] mx-auto"
+            >
+              <AddNoteTextArea />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 }

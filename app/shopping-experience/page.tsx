@@ -35,6 +35,11 @@ export default function ShoppingExperience() {
     [CONTROL_CONSTRAIT, 150, 0],
     ["#798E1A", "#AD750E", "#DA4B23"]
   );
+  const bgTextArea = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#c6df53", "#F0B74C", "#EA937B"]
+  );
 
   return (
     <motion.div
@@ -152,7 +157,11 @@ export default function ShoppingExperience() {
               }}
               className="mt-7 w-full max-w-[500px] mx-auto"
             >
-              <AddNoteTextArea />
+              <AddNoteTextArea
+                primaryColor={primaryColor}
+                textAreaColor={bgTextArea}
+                backgroundColor={backgroundColor}
+              />
             </motion.div>
           )}
         </AnimatePresence>

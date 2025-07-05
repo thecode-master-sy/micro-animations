@@ -19,6 +19,14 @@ const config = {
     },
     extend: {
       colors: {
+        homepage: {
+          background: "hsl(var(--homepage-bg))",
+          border: "hsl(var(--homepage-border))",
+          "navbar-bg": "hsl(var(--homepage-navbar-bg))",
+          card: {
+            bg: "hsl(var(--homepage-card-bg))",
+          },
+        },
         menu: {
           background: "hsl(var(--menu-animation-background))",
           "button-background": "hsl(var(--menu-animation-button))",
@@ -61,6 +69,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontSize: {
+        h1: "var(--text-heading-one)",
+        paragraph: "var(--text-paragraph)",
       },
       borderRadius: {
         lg: "var(--radius)",

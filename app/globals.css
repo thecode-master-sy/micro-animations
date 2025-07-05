@@ -34,6 +34,12 @@
     --shoping-experience-bg: 73 46% 52%;
     --shoping-experience-accent: 71 69% 33%;
     --shoping-experience-primary: 96 96% 10%;
+    --text-heading-one: clamp(2.5em, 6vw, 6em);
+    --text-paragraph: clamp(15px, 4vw, 17px);
+    --homepage-bg: 38.2 52.4% 95.9%;
+    --homepage-border: 41.3 40.5% 69%;
+    --homepage-navbar-bg: 37.5 57.1% 97.3%;
+    --homepage-card-bg: 37.5 57.1% 97.3%;
   }
 
   .dark {
@@ -61,6 +67,7 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --homepage-bg: 0, 0%, 6%;
   }
 }
 

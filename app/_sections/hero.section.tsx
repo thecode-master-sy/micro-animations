@@ -15,7 +15,7 @@ export default function HeroSection() {
         </a>
       </div>
 
-      <div className="flex flex-col md:flex-row border-t border-gray-300">
+      <div className="grid md:grid-cols-4 md:flex-row border-t border-gray-300">
         <HeroCard />
         <HeroCard />
         <HeroCard />

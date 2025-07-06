@@ -4,8 +4,9 @@ import NavBar from "../components/navbar";
 
 export default function Home() {
   return (
-    <div>
+    <div className="text-paragraph">
       <NavBar />
+
       <HeroSection />
     </div>
   );

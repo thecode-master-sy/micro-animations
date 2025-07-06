@@ -26,6 +26,7 @@ const config = {
           card: {
             bg: "hsl(var(--homepage-card-bg))",
           },
+          "navbar-hover": "hsl(var(--homepage-navbar-item-hover))",
         },
         menu: {
           background: "hsl(var(--menu-animation-background))",
@@ -73,6 +74,7 @@ const config = {
       fontSize: {
         h1: "var(--text-heading-one)",
         paragraph: "var(--text-paragraph)",
+        navbar: "var(--text-navbar)",
       },
       borderRadius: {
         lg: "var(--radius)",

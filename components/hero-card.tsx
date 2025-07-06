@@ -5,7 +5,7 @@ export default function HeroCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "bg-homepage-card-bg p-3 border-r border-gray-300",
+        "bg-homepage-card-bg p-3 border border-gray-300 rounded-md",
         className
       )}
     >

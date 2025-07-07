@@ -13,21 +13,21 @@ export default function NavBar() {
       </div>
       <div className="md:flex hidden">
         <ul className="flex items-center gap-2 font-medium text-navbar uppercase  rounded-full">
-          <li className="px-4 py-1 rounded-sm bg-[#eeece7] border border-gray-300">
+          <li className="px-4 py-1 rounded-sm bg-[#312e29] text-white">
             <Link className="relative" href="/home">
               <span>Home</span>
             </Link>
           </li>
-          <li className="px-4 py-1 bg-[#eeece7] rounded-sm">
+          <li className="px-4 py-1 bg-homepage-navbar-bg  rounded-sm">
             <Link href="/about">About</Link>
           </li>
-          <li className="px-4 py-1 bg-[#eeece7] rounded-sm">
+          <li className="px-4 py-1 bg-homepage-navbar-bg  rounded-sm">
             <Link href="/contact">Socials</Link>
           </li>
         </ul>
       </div>
 
-      <div className="flex gap-4 items-center">
+      <div className="md:flex gap-4 items-center hidden">
         <button className="bg-homepage-navbar-bg px-4 py-1 text-navbar rounded-sm">
           Log in
         </button>
@@ -35,6 +35,10 @@ export default function NavBar() {
           Become a member
         </button>
       </div>
+
+      <button className="bg-homepage-navbar-bg px-4 py-1 text-navbar rounded-sm uppercase md:hidden">
+        Menu
+      </button>
     </div>
   );
 }

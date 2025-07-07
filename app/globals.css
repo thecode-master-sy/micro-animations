@@ -35,7 +35,7 @@
     --shoping-experience-accent: 71 69% 33%;
     --shoping-experience-primary: 96 96% 10%;
     --text-heading-one: clamp(2.5em, 7vw, 10em);
-    --text-paragraph: clamp(16px, 1vw, 24px);
+    --text-paragraph: clamp(16px, 1.05vw, 24px);
     --text-navbar: clamp(13px, 1vw, 15px);
 
     --homepage-bg: 38.2 52.4% 95.9%;

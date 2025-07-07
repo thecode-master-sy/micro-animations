@@ -5,7 +5,7 @@ export default function HeroSection() {
     <div className="bg-homepage-background px-4">
       <div className="pt-24 pb-7 min-h-screen flex flex-col  justify-center gap-10">
         <div className="text-center">
-          <h1 className="text-h1 font-bold -tracking-[0.05em] max-w-[20ch] mx-auto leading-[1.1]">
+          <h1 className="text-h1 font-bold -tracking-[0.06em] max-w-[20ch] mx-auto leading-[1.1]">
             Recreating awesome ui animations across the web
           </h1>
           <a

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function NavBar() {
   return (
-    <div className="fixed  items-center top-0 left-0 right-0 z-[20] flex py-2 px-4 -tracking-[0.03em] justify-between">
+    <div className="fixed  items-center top-0 left-0 right-0 z-[20] flex py-2 px-4 -tracking-[0.04em] justify-between">
       <div>
         <span className="uppercase text-navbar">Micro animations</span>
       </div>

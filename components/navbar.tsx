@@ -2,22 +2,26 @@
 import { ArrowRight, Cpu, Mail, Moon } from "lucide-react";
 import { GithubLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function NavBar() {
+  const pathname = usePathname();
   return (
     <div className="fixed  items-center top-0 left-0 right-0 z-[20] flex py-2 px-4 -tracking-[0.04em] justify-between">
       <div>
         <span className="uppercase text-navbar">Micro animations</span>
       </div>
-      <div className="md:flex hidden gap-4">
-        <ul className="flex items-center gap-2 font-medium text-navbar uppercase rounded-full">
-          <li className="px-4 py-1 bg-homepage-navbar-hover rounded-full border border-gray-300">
-            <Link href="/home">Home</Link>
+      <div className="md:flex hidden">
+        <ul className="flex items-center gap-2 font-medium text-navbar uppercase  rounded-full">
+          <li className="px-4 py-1 rounded-sm bg-[#eeece7] border border-gray-300">
+            <Link className="relative" href="/home">
+              <span>Home</span>
+            </Link>
           </li>
-          <li className="px-4 py-1 ">
+          <li className="px-4 py-1 bg-[#eeece7] rounded-sm">
             <Link href="/about">About</Link>
           </li>
-          <li className="px-4 py-1 ">
+          <li className="px-4 py-1 bg-[#eeece7] rounded-sm">
             <Link href="/contact">Socials</Link>
           </li>
         </ul>

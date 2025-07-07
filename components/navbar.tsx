@@ -24,6 +24,9 @@ export default function NavBar() {
           <li className="px-4 py-1 bg-homepage-navbar-bg  rounded-sm">
             <Link href="/contact">Socials</Link>
           </li>
+          <li className="px-4 py-1 bg-homepage-navbar-bg  rounded-sm">
+            <Link href="/contact">Gallery</Link>
+          </li>
         </ul>
       </div>
 

@@ -33,23 +33,17 @@ export default function ExperienceText({
           x: width ? translateXValue : "-66.66%",
         }}
       >
-        <div className="w-screen">
-          <h1 className="text-5xl font-extrabold uppercase -tracking-[0.05em]">
-            Bad
-          </h1>
-        </div>
+        <span className="text-5xl inline-block w-[500px] font-extrabold uppercase -tracking-[0.05em]">
+          Bad
+        </span>
 
-        <div className="w-screen">
-          <h1 className="text-5xl font-extrabold uppercase -tracking-[0.05em]">
-            Not Bad
-          </h1>
-        </div>
+        <span className="text-5xl inline-block font-extrabold w-[500px] uppercase -tracking-[0.05em]">
+          Not Bad
+        </span>
 
-        <div className="w-screen">
-          <h1 className="text-5xl font-extrabold uppercase -tracking-[0.05em]">
-            Good
-          </h1>
-        </div>
+        <span className="text-5xl inline-block font-extrabold w-[500px] uppercase -tracking-[0.05em]">
+          Good
+        </span>
       </motion.div>
     </div>
   );

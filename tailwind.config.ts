@@ -73,6 +73,7 @@ const config = {
       },
       fontSize: {
         h1: "var(--text-heading-one)",
+        h2: "var(--text-heading-two)",
         paragraph: "var(--text-paragraph)",
         navbar: "var(--text-navbar)",
       },

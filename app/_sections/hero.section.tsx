@@ -3,7 +3,7 @@ import HeroCard from "@/components/hero-card";
 export default function HeroSection() {
   return (
     <div className="bg-homepage-background px-4">
-      <div className="pt-24 pb-10 flex flex-col  justify-center gap-12">
+      <div className="py-24 flex flex-col min-h-screen justify-center gap-12">
         <div className="text-center">
           <a
             href="https://x.com/thecode_master"

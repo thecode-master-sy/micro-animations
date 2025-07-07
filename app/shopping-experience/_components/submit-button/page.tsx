@@ -27,7 +27,6 @@ export default function SubmitButton({
       >
         <motion.button
           style={{ color: primaryColor }}
-          onClick={handleClick}
           className="pl-4 py-[14px] flex-1 text-left font-medium cursor-text"
         >
           Add note

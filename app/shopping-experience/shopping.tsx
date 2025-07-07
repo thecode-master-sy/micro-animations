@@ -3,47 +3,38 @@ import RightEye from "./_components/right-eye";
 import LeftEye from "./_components/left-eye";
 import { Info, X } from "lucide-react";
 import Mouth from "./_components/mouth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Control from "./_components/control";
 import {
-  useMotionValue,
-  useAnimation,
-  useTransform,
   motion,
   AnimatePresence,
+  MotionValue,
 } from "motion/react";
 import { CONTROL_CONSTRAIT } from "./_components/constants";
 import ExperienceText from "./_components/experience-text";
 import SubmitButton from "./_components/submit-button/page";
 import AddNoteTextArea from "./_components/text-area";
 
-export default function ShoppingExperience() {
+type ShoppingExperienceProps = {
+  backgroundColor: MotionValue<string>;
+  accentColor: MotionValue<string>;
+  controlX: MotionValue<number>;
+  primaryColor: MotionValue<string>;
+  bgTextArea: MotionValue<string>;
+};
+
+export default function ShoppingExperience({
+  backgroundColor,
+  accentColor,
+  controlX,
+  primaryColor,
+  bgTextArea,
+}: ShoppingExperienceProps) {
   const [isAddingNote, setIsAddingNote] = useState(false);
-  const controlX = useMotionValue(CONTROL_CONSTRAIT);
-  const backgroundColor = useTransform(
-    controlX,
-    [CONTROL_CONSTRAIT, 150, 0],
-    ["#A5BD4C", "#DDA33A", "#FC8054"]
-  );
-  const primaryColor = useTransform(
-    controlX,
-    [CONTROL_CONSTRAIT, 150, 0],
-    ["#153301", "#472007", "#6D0A01"]
-  );
-  const accentColor = useTransform(
-    controlX,
-    [CONTROL_CONSTRAIT, 150, 0],
-    ["#798E1A", "#AD750E", "#DA4B23"]
-  );
-  const bgTextArea = useTransform(
-    controlX,
-    [CONTROL_CONSTRAIT, 150, 0],
-    ["#c6df53", "#F0B74C", "#EA937B"]
-  );
 
   return (
     <motion.div
-      className="h-screen flex flex-col p-4 overflow-hidden"
+      className="h-screen flex flex-col p-4 overflow-hidden text-paragraph"
       style={{ backgroundColor }}
     >
       <div className="flex items-center justify-between">
@@ -70,7 +61,7 @@ export default function ShoppingExperience() {
                 ease: "easeInOut",
                 duration: 0.5,
               }}
-              className="text-[#153301] text-center flex justify-center text-xl"
+              className="text-[#153301] text-center flex justify-center"
             >
               <p>How was your shopping experience?</p>
             </motion.div>

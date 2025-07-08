@@ -76,6 +76,7 @@ const config = {
         h2: "var(--text-heading-two)",
         paragraph: "var(--text-paragraph)",
         navbar: "var(--text-navbar)",
+        "navbar-caps": "var(--text-navbar-caps)",
       },
       borderRadius: {
         lg: "var(--radius)",

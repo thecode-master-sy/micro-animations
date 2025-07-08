@@ -9,27 +9,41 @@ import {
   motion,
   AnimatePresence,
   MotionValue,
+  useMotionValue,
+  useTransform,
 } from "motion/react";
 import { CONTROL_CONSTRAIT } from "./_components/constants";
 import ExperienceText from "./_components/experience-text";
 import SubmitButton from "./_components/submit-button/page";
 import AddNoteTextArea from "./_components/text-area";
 
-type ShoppingExperienceProps = {
-  backgroundColor: MotionValue<string>;
-  accentColor: MotionValue<string>;
-  controlX: MotionValue<number>;
-  primaryColor: MotionValue<string>;
-  bgTextArea: MotionValue<string>;
-};
-
-export default function ShoppingExperience({
-  backgroundColor,
-  accentColor,
-  controlX,
-  primaryColor,
-  bgTextArea,
-}: ShoppingExperienceProps) {
+export default function ShoppingExperience() {
+  const controlX = useMotionValue(CONTROL_CONSTRAIT);
+  const backgroundColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#A5BD4C", "#DDA33A", "#FC8054"]
+  );
+  const primaryColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#153301", "#472007", "#6D0A01"]
+  );
+  const accentColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#798E1A", "#AD750E", "#DA4B23"]
+  );
+  const borderColor = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#788A38", "#af812c", "#d75b18"]
+  );
+  const bgTextArea = useTransform(
+    controlX,
+    [CONTROL_CONSTRAIT, 150, 0],
+    ["#c6df53", "#F0B74C", "#EA937B"]
+  );
   const [isAddingNote, setIsAddingNote] = useState(false);
 
   return (

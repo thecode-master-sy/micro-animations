@@ -37,12 +37,13 @@
     --text-heading-one: clamp(2.5em, 7vw, 10em);
     --text-heading-two: clamp(1.2em, 2vw, 1.8em);
     --text-paragraph: clamp(16px, 1.05vw, 24px);
-    --text-navbar: clamp(13px, 1vw, 15px);
+    --text-navbar: clamp(13px, 1vw, 16px);
+    --text-navbar-caps: clamp(12px, 0.8vw, 13px);
 
     --homepage-bg: 38.2 52.4% 95.9%;
     --homepage-border: 41.3 40.5% 69%;
     --homepage-navbar-bg: 39.2 17.3% 87.6%;
-    --homepage-navbar-item-hover: 39.2 17.3% 92%;
+    --homepage-navbar-item-hover: 39.2 17.3% 93%;
     --homepage-card-bg: 37.5 57.1% 97.3%;
   }
 

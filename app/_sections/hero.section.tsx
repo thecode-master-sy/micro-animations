@@ -1,3 +1,4 @@
+import DisplayAnimation from "@/components/display-animation";
 import HeroCard from "@/components/hero-card";
 
 export default function HeroSection() {
@@ -16,14 +17,7 @@ export default function HeroSection() {
           </h1>
         </div>
 
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 md:flex-row gap-4">
-          <HeroCard />
-          <HeroCard />
-          <HeroCard />
-          <div className="md:hidden lg:block">
-            <HeroCard />
-          </div>
-        </div>
+        <DisplayAnimation/>
       </div>
     </div>
   );

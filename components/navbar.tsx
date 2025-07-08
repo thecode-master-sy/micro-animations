@@ -27,14 +27,14 @@ export default function NavBar() {
         </ul>
       </div>
 
-      <div className="md:flex gap-4 items-center hidden">
+      <div className="hidden md:block">
         <button className="px-4 py-[6px] rounded-sm gap-1 bg-orange-500 font-medium text-navbar flex items-center">
           <Lock size={15} strokeWidth={1} />
           <span>Unlock all source code</span>
         </button>
       </div>
 
-      <button className="bg-homepage-navbar-bg px-4 py-1 text-navbar rounded-sm uppercase md:hidden">
+      <button className="bg-homepage-navbar-bg px-4 py-1 text-navbar rounded-sm md:hidden">
         Menu
       </button>
     </div>

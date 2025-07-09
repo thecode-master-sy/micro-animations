@@ -40,7 +40,7 @@ export default function DisplayAnimation() {
           </button>
         </div>
 
-        <button className="flex gap-2 px-4  py-3 items-center bg-white border border-gray-300 rounded-sm">
+        <button className="flex gap-2 px-4  py-2 items-center bg-white border border-gray-300 rounded-sm">
           <X strokeWidth={1} />
           <span>Clear filters</span>
         </button>

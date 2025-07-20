@@ -7,7 +7,7 @@ export default function RightEye({
   fill,
   controlX,
 }: {
-  fill: MotionValue<string>
+  fill: MotionValue<string>;
   controlX: MotionValue<number>;
 }) {
   return (

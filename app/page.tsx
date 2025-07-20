@@ -5,6 +5,7 @@ import NavBar from "../components/navbar";
 export default function Home() {
   return (
     <div className="text-paragraph bg-homepage-background ">
+      <NavBar />
       <HeroSection />
     </div>
   );

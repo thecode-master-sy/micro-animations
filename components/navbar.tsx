@@ -1,5 +1,5 @@
 "use client";
-import { Lock } from "lucide-react";
+import { Lock, Menu } from "lucide-react";
 import { GithubLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,16 +27,16 @@ export default function NavBar() {
         </ul>
       </div>
 
-      <div className="hidden md:block">
+      <div className="flex gap-2 items-center">
         <button className="px-4 py-[6px] rounded-sm gap-1 bg-orange-500 font-medium text-navbar flex items-center">
           <Lock size={15} strokeWidth={1} />
           <span>Unlock all source code</span>
         </button>
-      </div>
 
-      <button className="bg-homepage-navbar-bg px-4 py-1 text-navbar rounded-sm md:hidden">
-        Menu
-      </button>
+        <button className="bg-homepage-navbar-bg p-1  text-navbar rounded-sm md:hidden">
+          <Menu strokeWidth={1} />
+        </button>
+      </div>
     </div>
   );
 }

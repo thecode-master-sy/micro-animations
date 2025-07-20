@@ -2,7 +2,13 @@
 import { MotionValue, useTransform, motion } from "motion/react";
 import { CONTROL_CONSTRAIT } from "../constants";
 
-export default function Mouth({ controlX, fill }: { controlX: MotionValue<number>, fill: MotionValue<string> }) {
+export default function Mouth({
+  controlX,
+  fill,
+}: {
+  controlX: MotionValue<number>;
+  fill: MotionValue<string>;
+}) {
   const rotate = useTransform(
     controlX,
     [CONTROL_CONSTRAIT, CONTROL_CONSTRAIT / 2],

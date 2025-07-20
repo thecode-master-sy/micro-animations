@@ -1,19 +1,19 @@
 "use client";
-import RightEye from "./_components/right-eye";
-import LeftEye from "./_components/left-eye";
-import { Info, X } from "lucide-react";
-import Mouth from "./_components/mouth";
-import { useState } from "react";
-import Control from "./_components/control";
+
 import {
-  motion,
-  AnimatePresence,
-  MotionValue,
   useMotionValue,
   useTransform,
+  motion,
+  AnimatePresence,
 } from "motion/react";
 import { CONTROL_CONSTRAIT } from "./_components/constants";
+import { useState } from "react";
+import { Info, X } from "lucide-react";
+import Mouth from "./_components/mouth";
 import ExperienceText from "./_components/experience-text";
+import Control from "./_components/control";
+import LeftEye from "./_components/left-eye";
+import RightEye from "./_components/right-eye";
 import SubmitButton from "./_components/submit-button/page";
 import AddNoteTextArea from "./_components/text-area";
 
@@ -77,7 +77,7 @@ export default function ShoppingExperience() {
               }}
               className="text-[#153301] text-center flex justify-center"
             >
-              <p>How was your shopping experience?</p>
+              <p className="text-base">How was your shopping experience?</p>
             </motion.div>
           )}
         </AnimatePresence>

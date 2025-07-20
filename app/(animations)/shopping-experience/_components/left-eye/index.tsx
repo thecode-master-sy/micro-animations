@@ -8,7 +8,7 @@ export default function LeftEye({
   controlX,
 }: {
   controlX: MotionValue<number>;
-  fill: MotionValue<string>
+  fill: MotionValue<string>;
 }) {
   return (
     <div>

@@ -1,10 +1,18 @@
 "use client";
 import { gallery } from "../static";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export const DraggableGalleryColumn = ({ inverse }: { inverse?: boolean }) => {
+export const DraggableGalleryColumn = ({
+  inverse,
+  setMouseFollowerShouldShow,
+  setDisplayText,
+}: {
+  inverse?: boolean;
+  setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
+  setDisplayText: Dispatch<SetStateAction<string>>;
+}) => {
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
     <div className="flex flex-col w-full gap-4">
@@ -21,6 +29,13 @@ export const DraggableGalleryColumn = ({ inverse }: { inverse?: boolean }) => {
             src={item.image}
             alt={item.name}
             draggable={false}
+            onPointerEnter={() => {
+              setMouseFollowerShouldShow(true);
+              setDisplayText(item.name);
+            }}
+            onPointerLeave={() => {
+              setMouseFollowerShouldShow(false);
+            }}
           />
         </div>
       ))}

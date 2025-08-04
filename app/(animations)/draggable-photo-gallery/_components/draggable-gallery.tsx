@@ -3,11 +3,14 @@
 import { DraggableGalleryColumn } from "./draggable-gallery-column";
 import { motion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
+import { MouseFollower } from "./mouse-follower";
 
 export const DraggableGallery = () => {
   const columns = Array.from({ length: 12 }, (_, index) => index);
   const constraintsRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mouseFollowerShouldShow, setMouseFollowerShouldShow] = useState(false);
+  const [displayText, setDisplayText] = useState("Photo one");
   const [containerBoundaries, setContainerBoundaries] = useState({
     width: 0,
     height: 0,
@@ -41,6 +44,10 @@ export const DraggableGallery = () => {
       ref={containerRef}
       className="w-screen h-screen absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
+      <MouseFollower
+        shouldShow={mouseFollowerShouldShow}
+        displayText={displayText}
+      />
       <motion.div
         ref={constraintsRef}
         drag
@@ -53,7 +60,12 @@ export const DraggableGallery = () => {
         className="min-h-screen w-max cursor-grabbing flex gap-4  bg-[#f4f3f0] p-4"
       >
         {columns.map((_, index) => (
-          <DraggableGalleryColumn key={index} inverse={index % 2 === 0} />
+          <DraggableGalleryColumn
+            key={index}
+            inverse={index % 2 === 0}
+            setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+            setDisplayText={setDisplayText}
+          />
         ))}
       </motion.div>
     </div>

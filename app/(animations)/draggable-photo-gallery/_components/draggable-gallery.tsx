@@ -1,6 +1,6 @@
 "use client";
 import { DraggableGalleryColumn } from "./draggable-gallery-column";
-import { motion } from "motion/react";
+import { motion, useAnimation } from "motion/react";
 import { useRef, useEffect, useState } from "react";
 import { MouseFollower } from "./mouse-follower";
 import { GallerySwitch } from "./switch-gallery-view";
@@ -12,6 +12,7 @@ export const DraggableGallery = () => {
   const [mouseFollowerShouldShow, setMouseFollowerShouldShow] = useState(false);
   const [displayText, setDisplayText] = useState("Photo one");
   const [showRestOfImages, setShowRestOfImages] = useState(true);
+  const [drag, setDrag] = useState(true);
   const [containerBoundaries, setContainerBoundaries] = useState({
     width: 0,
     height: 0,
@@ -22,7 +23,7 @@ export const DraggableGallery = () => {
     top: 0,
     bottom: 0,
   });
-
+  const galleryControls = useAnimation();
   useEffect(() => {
     const containerRect = containerRef?.current?.getBoundingClientRect();
     const rect = constraintsRef?.current?.getBoundingClientRect();
@@ -49,17 +50,18 @@ export const DraggableGallery = () => {
         shouldShow={mouseFollowerShouldShow}
         displayText={displayText}
       />
-      <GallerySwitch setShowRestOfImages={setShowRestOfImages} />
+      <GallerySwitch setDrag={setDrag} galleryControls={galleryControls}  />
       <motion.div
         ref={constraintsRef}
-        drag
+        drag={drag}
         dragConstraints={{
           right: constraints.left,
           left: -(constraints.right - containerBoundaries.width),
           top: -(constraints.bottom - containerBoundaries.height),
           bottom: -constraints.top,
         }}
-        className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4"
+        animate={galleryControls}
+        className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
       >
         <DraggableGalleryColumn
           setMouseFollowerShouldShow={setMouseFollowerShouldShow}

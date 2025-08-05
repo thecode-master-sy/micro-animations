@@ -4,22 +4,32 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Flip } from "gsap/Flip";
 import { Dispatch, SetStateAction } from "react";
+import { useRouter } from "next/navigation";
+import { AnimationControls } from "motion/react";
 
 gsap.registerPlugin(Flip);
 
 export const GallerySwitch = ({
-  setShowRestOfImages,
+  setDrag,
+  galleryControls,
 }: {
-  setShowRestOfImages: Dispatch<SetStateAction<boolean>>;
+  setDrag: Dispatch<SetStateAction<boolean>>;
+  galleryControls: AnimationControls;
 }) => {
   const { contextSafe } = useGSAP();
 
-  const onSliderButtonClick = contextSafe(() => {
+  const onSliderButtonClick = contextSafe(async () => {
     const firstColumn = document.querySelector(".gallery-column:first-child");
     const mainTimeLine = gsap.timeline();
     console.log(firstColumn);
 
     const timeline = gsap.timeline();
+    //this is probably bad code, trying to combine two animation libraries and forcing a wait here, well who cares. it works doesn't it? Does it?
+    setDrag(false);
+    await galleryControls.start(
+      { x: 0, y: 0 },
+      { duration: 0.5, ease: "linear" }
+    );
 
     timeline.to(".gallery-column:not(:first-child)", {
       opacity: 0,
@@ -46,24 +56,30 @@ export const GallerySwitch = ({
     }
     const mainTimeLine = gsap.timeline();
 
-    mainTimeLine.add(() => {
-      const state = Flip.getState(
-        ".gallery-column:first-child, .gallery-column:first-child .gallery-item"
-      );
+    mainTimeLine
+      .add(() => {
+        const state = Flip.getState(
+          ".gallery-column:first-child, .gallery-column:first-child .gallery-item"
+        );
 
-      firstColumn!.classList.remove("is-row");
-      Flip.from(state, {
-        duration: 0.5,
-        ease: "power1.inOut",
-        absolute: true,
-        stagger: 0.1,
-        onComplete: () => {
-          gsap.to(".gallery-column:not(:first-child)", {
-            opacity: 1,
-          });
+        firstColumn!.classList.remove("is-row");
+        Flip.from(state, {
+          duration: 0.5,
+          ease: "power1.inOut",
+          absolute: true,
+          stagger: 0.1,
+          onComplete: () => {
+            setDrag(true);
+          },
+        });
+      })
+      .to(
+        ".gallery-column:not(:first-child)",
+        {
+          opacity: 1,
         },
-      });
-    });
+        ">1.55"  //another hack here, this value is purely hardcoded, some kind of opacity glitch happens I cant explain the cause but this value fixes it.
+      );
   });
 
   return (

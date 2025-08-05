@@ -41,9 +41,10 @@ export const GallerySwitch = ({
 
   const onGridButtonClick = contextSafe(() => {
     const firstColumn = document.querySelector(".gallery-column:first-child");
+    if (!firstColumn!.classList.contains("is-row")) {
+      return;
+    }
     const mainTimeLine = gsap.timeline();
-
-    const timeline = gsap.timeline();
 
     mainTimeLine.add(() => {
       const state = Flip.getState(

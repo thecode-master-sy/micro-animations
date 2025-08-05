@@ -59,7 +59,7 @@ export const DraggableGallery = () => {
           top: -(constraints.bottom - containerBoundaries.height),
           bottom: -constraints.top,
         }}
-        className="min-h-screen w-max cursor-grabbing flex gap-44  bg-[#f4f3f0] p-4"
+        className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4"
       >
         <DraggableGalleryColumn
           setMouseFollowerShouldShow={setMouseFollowerShouldShow}

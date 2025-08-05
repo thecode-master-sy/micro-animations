@@ -16,17 +16,17 @@ export const DraggableGalleryColumn = ({
 }) => {
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
-    <div className="gap-4 gallery-column">
+    <div className="gallery-column">
       {galleryArray.map((item, index) => (
         <motion.div
           key={item.id}
-          className="overflow-hidden relative border flex gap-1 min-w-[150px] min-h-[200px] w-[25vw] h-[25vh] gallery-item"
+          className="overflow-hidden relative flex gap-1 gallery-item"
         >
           <span className="text-[1vw] select-none">0{index}</span>
           <Image
             width={150}
             height={200}
-            className="w-[10vw] h-[25vh] min-w-[150px] min-h-[200px] select-none touch-none"
+            className="gallery-image select-none touch-none"
             src={item.image}
             alt={item.name}
             draggable={false}

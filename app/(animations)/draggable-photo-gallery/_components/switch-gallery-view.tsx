@@ -27,7 +27,9 @@ export const GallerySwitch = ({
     });
 
     mainTimeLine.add(timeline).add(() => {
-      const state = Flip.getState(".gallery-column, .gallery-item");
+      const state = Flip.getState(
+        ".gallery-column:first-child, .gallery-column:first-child .gallery-item"
+      );
       firstColumn!.classList.add("is-row");
       Flip.from(state, {
         duration: 0.5, // The duration of the flip animation
@@ -35,7 +37,7 @@ export const GallerySwitch = ({
         absolute: true, // Recommended to prevent layout shifts
         stagger: 0.1,
       });
-    });
+    }, ">-0.05");
   });
 
   return (

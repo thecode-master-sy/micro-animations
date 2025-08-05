@@ -1,16 +1,17 @@
 "use client";
-
 import { DraggableGalleryColumn } from "./draggable-gallery-column";
 import { motion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
 import { MouseFollower } from "./mouse-follower";
+import { GallerySwitch } from "./switch-gallery-view";
 
 export const DraggableGallery = () => {
-  const columns = Array.from({ length: 12 }, (_, index) => index);
+  const columns = Array.from({ length: 11 }, (_, index) => index);
   const constraintsRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [mouseFollowerShouldShow, setMouseFollowerShouldShow] = useState(false);
   const [displayText, setDisplayText] = useState("Photo one");
+  const [showRestOfImages, setShowRestOfImages] = useState(true);
   const [containerBoundaries, setContainerBoundaries] = useState({
     width: 0,
     height: 0,
@@ -48,6 +49,7 @@ export const DraggableGallery = () => {
         shouldShow={mouseFollowerShouldShow}
         displayText={displayText}
       />
+      <GallerySwitch setShowRestOfImages={setShowRestOfImages}/>
       <motion.div
         ref={constraintsRef}
         drag
@@ -59,14 +61,19 @@ export const DraggableGallery = () => {
         }}
         className="min-h-screen w-max cursor-grabbing flex gap-4  bg-[#f4f3f0] p-4"
       >
-        {columns.map((_, index) => (
-          <DraggableGalleryColumn
-            key={index}
-            inverse={index % 2 === 0}
-            setMouseFollowerShouldShow={setMouseFollowerShouldShow}
-            setDisplayText={setDisplayText}
-          />
-        ))}
+        <DraggableGalleryColumn
+          setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+          setDisplayText={setDisplayText}
+        />
+        {showRestOfImages &&
+          columns.map((_, index) => (
+            <DraggableGalleryColumn
+              key={index}
+              inverse={index % 2 === 0}
+              setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+              setDisplayText={setDisplayText}
+            />
+          ))}
       </motion.div>
     </div>
   );

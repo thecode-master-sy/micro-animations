@@ -90,3 +90,12 @@
     width: min(100%, 500px);
   }
 }
+
+.gallery-column {
+  display: grid;
+}
+
+.gallery-column.is-row {
+  display: flex;
+  width: fit-content;
+}

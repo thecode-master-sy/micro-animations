@@ -3,6 +3,7 @@ import { gallery } from "../static";
 import { Dispatch, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 export const DraggableGalleryColumn = ({
   inverse,
@@ -15,11 +16,11 @@ export const DraggableGalleryColumn = ({
 }) => {
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
-    <div className="flex flex-col w-full gap-4">
+    <div className="gap-4 gallery-column">
       {galleryArray.map((item, index) => (
-        <div
+        <motion.div
           key={item.id}
-          className="overflow-hidden relative flex gap-1 min-w-[150px] min-h-[200px] w-[25vw] h-[25vh]"
+          className="overflow-hidden relative border flex gap-1 min-w-[150px] min-h-[200px] w-[25vw] h-[25vh] gallery-item"
         >
           <span className="text-[1vw] select-none">0{index}</span>
           <Image
@@ -37,7 +38,7 @@ export const DraggableGalleryColumn = ({
               setMouseFollowerShouldShow(false);
             }}
           />
-        </div>
+        </motion.div>
       ))}
     </div>
   );

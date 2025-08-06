@@ -3,9 +3,10 @@
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Flip } from "gsap/Flip";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimationControls } from "motion/react";
+import { AnimationControls, motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(Flip);
 
@@ -17,8 +18,10 @@ export const GallerySwitch = ({
   galleryControls: AnimationControls;
 }) => {
   const { contextSafe } = useGSAP();
+  const [activeLayout, setActiveLayout] = useState("grid");
 
   const onSliderButtonClick = contextSafe(async () => {
+    setActiveLayout("slider");
     const firstColumn = document.querySelector(".gallery-column:first-child");
     const mainTimeLine = gsap.timeline();
     console.log(firstColumn);
@@ -50,6 +53,7 @@ export const GallerySwitch = ({
   });
 
   const onGridButtonClick = contextSafe(() => {
+    setActiveLayout("grid");
     const firstColumn = document.querySelector(".gallery-column:first-child");
     if (!firstColumn!.classList.contains("is-row")) {
       return;
@@ -78,14 +82,36 @@ export const GallerySwitch = ({
         {
           opacity: 1,
         },
-        ">1.55"  //another hack here, this value is purely hardcoded, some kind of opacity glitch happens I cant explain the cause but this value fixes it.
+        ">1.55" //another hack here, this value is purely hardcoded, some kind of opacity glitch happens I cant explain the cause but this value fixes it.
       );
   });
 
   return (
-    <div className="absolute bottom-4 left-1/2 flex bg-white p-4 rounded-sm z-10 -translate-x-1/2">
-      <button onClick={() => onGridButtonClick()}>Grid view</button>
-      <button onClick={() => onSliderButtonClick()}>Slider view</button>
+    <div className="absolute bottom-4 left-1/2 flex bg-blur px-4 py-2 rounded-sm z-10 -translate-x-1/2">
+      <button
+        className={cn("px-2 py-1 rounded-sm relative text-black")}
+        onClick={() => onGridButtonClick()}
+      >
+        <span>Grid view</span>
+        {activeLayout === "grid" && (
+          <motion.span
+            layoutId="active-item"
+            className="absolute inset-0 -z-10 bg-white rounded-md"
+          />
+        )}
+      </button>
+      <button
+        className={cn("px-2 py-1 relative text-black")}
+        onClick={() => onSliderButtonClick()}
+      >
+        <span> Slider view</span>
+        {activeLayout === "slider" && (
+          <motion.span
+            layoutId="active-item"
+            className="absolute inset-0 -z-10 bg-white rounded-md"
+          />
+        )}
+      </button>
     </div>
   );
 };

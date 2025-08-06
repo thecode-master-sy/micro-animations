@@ -22,7 +22,9 @@ export const DraggableGalleryColumn = ({
           key={item.id}
           className="overflow-hidden relative flex gap-1 gallery-item"
         >
-          <span className="text-[1vw] select-none">0{index}</span>
+          <span className="text-[12px] lg:text-[1vw] select-none">
+            0{index}
+          </span>
           <Image
             width={150}
             height={200}

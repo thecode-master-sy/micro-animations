@@ -44,13 +44,13 @@ export const DraggableGallery = () => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-screen absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      className="w-screen h-[100svh] absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
     >
       <MouseFollower
         shouldShow={mouseFollowerShouldShow}
         displayText={displayText}
       />
-      <GallerySwitch setDrag={setDrag} galleryControls={galleryControls}  />
+      <GallerySwitch setDrag={setDrag} galleryControls={galleryControls} />
       <motion.div
         ref={constraintsRef}
         drag={drag}

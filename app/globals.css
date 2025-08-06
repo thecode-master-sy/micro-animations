@@ -122,6 +122,11 @@
   height: 100%;
 }
 
+.bg-blur {
+  background-color: #bababa33;
+  backdrop-filter: blur(8px);
+}
+
 /* .gallery-column.is-row .gallery-item {
   height: 40vh;
 }

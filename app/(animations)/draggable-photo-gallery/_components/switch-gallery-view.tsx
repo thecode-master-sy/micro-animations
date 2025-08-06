@@ -21,8 +21,11 @@ export const GallerySwitch = ({
   const [activeLayout, setActiveLayout] = useState("grid");
 
   const onSliderButtonClick = contextSafe(async () => {
-    setActiveLayout("slider");
     const firstColumn = document.querySelector(".gallery-column:first-child");
+    if (firstColumn!.classList.contains("is-row")) {
+      return;
+    }
+    setActiveLayout("slider");
     const mainTimeLine = gsap.timeline();
     console.log(firstColumn);
 
@@ -53,11 +56,11 @@ export const GallerySwitch = ({
   });
 
   const onGridButtonClick = contextSafe(() => {
-    setActiveLayout("grid");
     const firstColumn = document.querySelector(".gallery-column:first-child");
     if (!firstColumn!.classList.contains("is-row")) {
       return;
     }
+    setActiveLayout("grid");
     const mainTimeLine = gsap.timeline();
 
     mainTimeLine
@@ -87,9 +90,11 @@ export const GallerySwitch = ({
   });
 
   return (
-    <div className="absolute bottom-4 left-1/2 flex bg-blur px-4 py-2 rounded-sm z-10 -translate-x-1/2">
+    <div className="absolute   bottom-4 left-1/2 flex bg-blur px-4 py-2 md:py-[0.8vw] md:px-[1.2vw] rounded-sm z-10 -translate-x-1/2">
       <button
-        className={cn("px-2 py-1 rounded-sm relative text-black")}
+        className={cn(
+          "px-2 py-1 md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
+        )}
         onClick={() => onGridButtonClick()}
       >
         <span>Grid view</span>
@@ -101,7 +106,9 @@ export const GallerySwitch = ({
         )}
       </button>
       <button
-        className={cn("px-2 py-1 relative text-black")}
+        className={cn(
+          "px-2 py-1 md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
+        )}
         onClick={() => onSliderButtonClick()}
       >
         <span> Slider view</span>

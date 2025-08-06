@@ -1,11 +1,24 @@
 "use client";
 import { DraggableGalleryColumn } from "./draggable-gallery-column";
-import { motion, useAnimation } from "motion/react";
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  MotionValue,
+  useMotionValue,
+  animate,
+} from "motion/react";
 import { useRef, useEffect, useState } from "react";
 import { MouseFollower } from "./mouse-follower";
 import { GallerySwitch } from "./switch-gallery-view";
 
-export const DraggableGallery = () => {
+export const DraggableGallery = ({
+  scrollYProgress,
+}: {
+  scrollYProgress: MotionValue<number>;
+}) => {
   const columns = Array.from({ length: 11 }, (_, index) => index);
   const constraintsRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,8 +35,24 @@ export const DraggableGallery = () => {
     left: 0,
     top: 0,
     bottom: 0,
+    width: 0,
+    height: 0,
   });
   const galleryControls = useAnimation();
+  const y = useMotionValue(0);
+  const scrollYProgressTransform = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, -constraints.height]
+  );
+  useMotionValueEvent(scrollYProgressTransform, "change", (latest) => {
+    // Check if the user is currently dragging.
+    // If not, update the y position with the new scroll value.
+    animate(y, latest, {
+      duration: 0.5,
+      ease: "linear",
+    });
+  });
   useEffect(() => {
     const containerRect = containerRef?.current?.getBoundingClientRect();
     const rect = constraintsRef?.current?.getBoundingClientRect();
@@ -34,6 +63,8 @@ export const DraggableGallery = () => {
         left: rect.left,
         top: rect.top,
         bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
       });
       setContainerBoundaries({
         width: containerRect.width,
@@ -41,42 +72,46 @@ export const DraggableGallery = () => {
       });
     }
   }, []);
+
   return (
-    <div
-      ref={containerRef}
-      className="w-screen h-[100svh] absolute overflow-hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-    >
-      <MouseFollower
-        shouldShow={mouseFollowerShouldShow}
-        displayText={displayText}
-      />
-      <GallerySwitch setDrag={setDrag} galleryControls={galleryControls} />
-      <motion.div
-        ref={constraintsRef}
-        drag={drag}
-        dragConstraints={{
-          right: constraints.left,
-          left: -(constraints.right - containerBoundaries.width),
-          top: -(constraints.bottom - containerBoundaries.height),
-          bottom: -constraints.top,
-        }}
-        animate={galleryControls}
-        className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
+    <div className="h-[350vh] relative">
+      <div
+        ref={containerRef}
+        className="w-screen h-[100svh] sticky top-0 overflow-hidden"
       >
-        <DraggableGalleryColumn
-          setMouseFollowerShouldShow={setMouseFollowerShouldShow}
-          setDisplayText={setDisplayText}
+        <MouseFollower
+          shouldShow={mouseFollowerShouldShow}
+          displayText={displayText}
         />
-        {showRestOfImages &&
-          columns.map((_, index) => (
-            <DraggableGalleryColumn
-              key={index}
-              inverse={index % 2 === 0}
-              setMouseFollowerShouldShow={setMouseFollowerShouldShow}
-              setDisplayText={setDisplayText}
-            />
-          ))}
-      </motion.div>
+        <GallerySwitch setDrag={setDrag} galleryControls={galleryControls} />
+        <motion.div
+          ref={constraintsRef}
+          drag={drag}
+          dragConstraints={{
+            right: constraints.left,
+            left: -(constraints.right - containerBoundaries.width),
+            top: -(constraints.bottom - containerBoundaries.height),
+            bottom: -constraints.top,
+          }}
+          animate={galleryControls}
+          style={{y}}
+          className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
+        >
+          <DraggableGalleryColumn
+            setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+            setDisplayText={setDisplayText}
+          />
+          {showRestOfImages &&
+            columns.map((_, index) => (
+              <DraggableGalleryColumn
+                key={index}
+                inverse={index % 2 === 0}
+                setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+                setDisplayText={setDisplayText}
+              />
+            ))}
+        </motion.div>
+      </div>
     </div>
   );
 };

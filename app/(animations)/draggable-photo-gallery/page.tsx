@@ -5,16 +5,19 @@ import { useScroll, useMotionValueEvent } from "motion/react";
 
 export default function DragglePhotoGallery() {
   const scrollReference = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollXProgress } = useScroll({
     container: scrollReference,
   });
 
   return (
     <div
-      className="w-screen h-screen photo-gallery-container overflow-scroll bg-[#f4f3f0] relative"
+      className="w-screen h-screen  overflow-hidden bg-[#f4f3f0] relative"
       ref={scrollReference}
     >
-      <DraggableGallery scrollYProgress={scrollYProgress} />
+      <DraggableGallery
+        scrollYProgress={scrollYProgress}
+        scrollXProgress={scrollXProgress}
+      />
     </div>
   );
 }

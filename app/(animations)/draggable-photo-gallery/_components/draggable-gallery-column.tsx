@@ -32,11 +32,11 @@ export const DraggableGalleryColumn = ({
             src={item.image}
             alt={item.name}
             draggable={false}
-            onPointerEnter={() => {
+            onMouseEnter={() => {
               setMouseFollowerShouldShow(true);
               setDisplayText(item.name);
             }}
-            onPointerLeave={() => {
+            onMouseLeave={() => {
               setMouseFollowerShouldShow(false);
             }}
           />

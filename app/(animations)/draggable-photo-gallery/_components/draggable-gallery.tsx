@@ -16,8 +16,10 @@ import { GallerySwitch } from "./switch-gallery-view";
 
 export const DraggableGallery = ({
   scrollYProgress,
+  scrollXProgress,
 }: {
   scrollYProgress: MotionValue<number>;
+  scrollXProgress: MotionValue<number>;
 }) => {
   const columns = Array.from({ length: 11 }, (_, index) => index);
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -40,19 +42,23 @@ export const DraggableGallery = ({
   });
   const galleryControls = useAnimation();
   const y = useMotionValue(0);
-  const scrollYProgressTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -constraints.height]
-  );
-  useMotionValueEvent(scrollYProgressTransform, "change", (latest) => {
-    // Check if the user is currently dragging.
-    // If not, update the y position with the new scroll value.
-    animate(y, latest, {
-      duration: 0.5,
-      ease: "linear",
-    });
-  });
+  const x = useMotionValue(0);
+  // const scrollYProgressTransform = useTransform(
+  //   scrollYProgress,
+  //   [0, 1],
+  //   [0, -constraints.height]
+  // );
+  // const scrollXProgressTransform = useTransform(
+  //   scrollXProgress,
+  //   [0, 1],
+  //   [0, -constraints.width]
+  // );
+  // useMotionValueEvent(scrollYProgressTransform, "change", (latest) => {
+  //   y.set(latest);
+  // });
+  // useMotionValueEvent(scrollXProgressTransform, "change", (latest) => {
+  //   x.set(latest);
+  // });  => scroll was had to integrate.
   useEffect(() => {
     const containerRect = containerRef?.current?.getBoundingClientRect();
     const rect = constraintsRef?.current?.getBoundingClientRect();
@@ -74,7 +80,7 @@ export const DraggableGallery = ({
   }, []);
 
   return (
-    <div className="h-[350vh] relative">
+    <div className="h-[350vh] w-[350vw] relative">
       <div
         ref={containerRef}
         className="w-screen h-[100svh] sticky top-0 overflow-hidden"
@@ -94,7 +100,6 @@ export const DraggableGallery = ({
             bottom: -constraints.top,
           }}
           animate={galleryControls}
-          style={{y}}
           className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
         >
           <DraggableGalleryColumn

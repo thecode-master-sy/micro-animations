@@ -10,9 +10,10 @@ import {
   useMotionValue,
   animate,
 } from "motion/react";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect } from "react";
 import { MouseFollower } from "./mouse-follower";
 import { GallerySwitch } from "./switch-gallery-view";
+import { InfoPannel } from "./info-pannel";
 
 export const DraggableGallery = ({
   scrollYProgress,
@@ -43,26 +44,11 @@ export const DraggableGallery = ({
   const galleryControls = useAnimation();
   const y = useMotionValue(0);
   const x = useMotionValue(0);
-  // const scrollYProgressTransform = useTransform(
-  //   scrollYProgress,
-  //   [0, 1],
-  //   [0, -constraints.height]
-  // );
-  // const scrollXProgressTransform = useTransform(
-  //   scrollXProgress,
-  //   [0, 1],
-  //   [0, -constraints.width]
-  // );
-  // useMotionValueEvent(scrollYProgressTransform, "change", (latest) => {
-  //   y.set(latest);
-  // });
-  // useMotionValueEvent(scrollXProgressTransform, "change", (latest) => {
-  //   x.set(latest);
-  // });  => scroll was had to integrate.
+
   useEffect(() => {
     const containerRect = containerRef?.current?.getBoundingClientRect();
     const rect = constraintsRef?.current?.getBoundingClientRect();
-    console.log(rect);
+
     if (rect && containerRect) {
       setConstraints({
         right: rect.right,
@@ -80,43 +66,39 @@ export const DraggableGallery = ({
   }, []);
 
   return (
-    <div className="h-[350vh] w-[350vw] relative">
-      <div
-        ref={containerRef}
-        className="w-screen h-[100svh] sticky top-0 overflow-hidden"
+    <div ref={containerRef} className="w-screen h-[100svh] overflow-hidden">
+      <InfoPannel />
+      <MouseFollower
+        shouldShow={mouseFollowerShouldShow}
+        displayText={displayText}
+      />
+      <GallerySwitch setDrag={setDrag} galleryControls={galleryControls} />
+      <motion.div
+        ref={constraintsRef}
+        drag={!drag ? "x" : drag}
+        dragConstraints={{
+          right: constraints.left,
+          left: -(constraints.width - containerBoundaries.width),
+          top: -(constraints.bottom - containerBoundaries.height),
+          bottom: -constraints.top,
+        }}
+        animate={galleryControls}
+        className="min-h-screen w-fit cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
       >
-        <MouseFollower
-          shouldShow={mouseFollowerShouldShow}
-          displayText={displayText}
+        <DraggableGalleryColumn
+          setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+          setDisplayText={setDisplayText}
         />
-        <GallerySwitch setDrag={setDrag} galleryControls={galleryControls} />
-        <motion.div
-          ref={constraintsRef}
-          drag={drag}
-          dragConstraints={{
-            right: constraints.left,
-            left: -(constraints.right - containerBoundaries.width),
-            top: -(constraints.bottom - containerBoundaries.height),
-            bottom: -constraints.top,
-          }}
-          animate={galleryControls}
-          className="min-h-screen w-max cursor-grabbing flex gap-[15vw]  bg-[#f4f3f0] p-4 draggable-gallery"
-        >
-          <DraggableGalleryColumn
-            setMouseFollowerShouldShow={setMouseFollowerShouldShow}
-            setDisplayText={setDisplayText}
-          />
-          {showRestOfImages &&
-            columns.map((_, index) => (
-              <DraggableGalleryColumn
-                key={index}
-                inverse={index % 2 === 0}
-                setMouseFollowerShouldShow={setMouseFollowerShouldShow}
-                setDisplayText={setDisplayText}
-              />
-            ))}
-        </motion.div>
-      </div>
+        {showRestOfImages &&
+          columns.map((_, index) => (
+            <DraggableGalleryColumn
+              key={index}
+              inverse={index % 2 === 0}
+              setMouseFollowerShouldShow={setMouseFollowerShouldShow}
+              setDisplayText={setDisplayText}
+            />
+          ))}
+      </motion.div>
     </div>
   );
 };

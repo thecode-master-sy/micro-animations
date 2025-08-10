@@ -1,16 +1,18 @@
 "use client";
 import { gallery } from "../static";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "motion/react";
 
 export const DraggableGalleryColumn = ({
+ 
   inverse,
   setMouseFollowerShouldShow,
   setDisplayText,
 }: {
   inverse?: boolean;
+ 
   setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
   setDisplayText: Dispatch<SetStateAction<string>>;
 }) => {

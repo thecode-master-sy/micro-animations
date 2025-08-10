@@ -18,6 +18,7 @@ export const GallerySwitch = ({
   galleryControls: AnimationControls;
 }) => {
   const { contextSafe } = useGSAP();
+  const router = useRouter();
   const [activeLayout, setActiveLayout] = useState("grid");
 
   const onSliderButtonClick = contextSafe(async () => {
@@ -93,11 +94,11 @@ export const GallerySwitch = ({
     <div className="absolute   bottom-4 left-1/2 flex bg-blur px-4 py-2 md:py-[0.8vw] md:px-[1.2vw] rounded-sm z-10 -translate-x-1/2">
       <button
         className={cn(
-          "px-2 py-1 md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
+          "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
         )}
         onClick={() => onGridButtonClick()}
       >
-        <span>Grid view</span>
+        <span className="w-max">Grid view</span>
         {activeLayout === "grid" && (
           <motion.span
             layoutId="active-item"
@@ -107,11 +108,11 @@ export const GallerySwitch = ({
       </button>
       <button
         className={cn(
-          "px-2 py-1 md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
+          "px-2 py-1 w-fit  md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
         )}
         onClick={() => onSliderButtonClick()}
       >
-        <span> Slider view</span>
+        <span className="w-max"> Slider view</span>
         {activeLayout === "slider" && (
           <motion.span
             layoutId="active-item"

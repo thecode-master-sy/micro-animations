@@ -5,17 +5,17 @@ import { useGSAP } from "@gsap/react";
 import { Flip } from "gsap/Flip";
 import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimationControls, motion } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(Flip);
 
 export const GallerySwitch = ({
   setDrag,
-  galleryControls,
-}: {
+}: // galleryControls,
+{
   setDrag: Dispatch<SetStateAction<boolean>>;
-  galleryControls: AnimationControls;
+  // galleryControls: AnimationControls;
 }) => {
   const { contextSafe } = useGSAP();
   const router = useRouter();
@@ -33,10 +33,10 @@ export const GallerySwitch = ({
     const timeline = gsap.timeline();
     //this is probably bad code, trying to combine two animation libraries and forcing a wait here, well who cares. it works doesn't it? Does it?
     setDrag(false);
-    await galleryControls.start(
-      { x: 0, y: 0 },
-      { duration: 0.5, ease: "linear" }
-    );
+    // await galleryControls.start(
+    //   { x: 0, y: 0 },
+    //   { duration: 0.5, ease: "linear" }
+    // );
 
     timeline.to(".gallery-column:not(:first-child)", {
       opacity: 0,

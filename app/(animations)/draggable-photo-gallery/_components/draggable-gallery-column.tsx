@@ -6,15 +6,14 @@ import Image from "next/image";
 import { motion } from "motion/react";
 
 export const DraggableGalleryColumn = ({
- 
   inverse,
-  setMouseFollowerShouldShow,
-  setDisplayText,
-}: {
+}: // setMouseFollowerShouldShow,
+// setDisplayText,
+{
   inverse?: boolean;
- 
-  setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
-  setDisplayText: Dispatch<SetStateAction<string>>;
+
+  // setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
+  // setDisplayText: Dispatch<SetStateAction<string>>;
 }) => {
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
@@ -30,17 +29,10 @@ export const DraggableGalleryColumn = ({
           <Image
             width={150}
             height={200}
-            className="gallery-image select-none touch-none"
+            className="gallery-image select-none cursor-pointer touch-none"
             src={item.image}
             alt={item.name}
             draggable={false}
-            onMouseEnter={() => {
-              setMouseFollowerShouldShow(true);
-              setDisplayText(item.name);
-            }}
-            onMouseLeave={() => {
-              setMouseFollowerShouldShow(false);
-            }}
           />
         </motion.div>
       ))}

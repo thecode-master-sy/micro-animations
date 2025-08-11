@@ -33,10 +33,10 @@ export const GallerySwitch = ({
     const timeline = gsap.timeline();
     //this is probably bad code, trying to combine two animation libraries and forcing a wait here, well who cares. it works doesn't it? Does it?
     setDrag(false);
-    // await galleryControls.start(
-    //   { x: 0, y: 0 },
-    //   { duration: 0.5, ease: "linear" }
-    // );
+    timeline.to(".draggable-gallery", {
+      y: 0,
+      x: 0,
+    });
 
     timeline.to(".gallery-column:not(:first-child)", {
       opacity: 0,
@@ -57,7 +57,9 @@ export const GallerySwitch = ({
   });
 
   const onGridButtonClick = contextSafe(() => {
-    const firstColumn = document.querySelector(".gallery-column:first-child");
+    const firstColumn = document.querySelector(
+      ".gallery-column:not(.slider-element)"
+    );
     if (!firstColumn!.classList.contains("is-row")) {
       return;
     }
@@ -82,7 +84,7 @@ export const GallerySwitch = ({
         });
       })
       .to(
-        ".gallery-column:not(:first-child)",
+        ".gallery-column:not(:first-child):not(.slider-element)",
         {
           opacity: 1,
         },

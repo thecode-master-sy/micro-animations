@@ -120,9 +120,9 @@
 
 .gallery-column.is-row .gallery-item {
   min-width: 200px;
-  min-height: 300px;
+  min-height: 350px;
   width: 20vw;
-  height: 35vh;
+  height: 40vh;
 }
 
 .gallery-image {

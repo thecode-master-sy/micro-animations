@@ -7,17 +7,18 @@ import { motion } from "motion/react";
 
 export const DraggableGalleryColumn = ({
   inverse,
+  className,
 }: // setMouseFollowerShouldShow,
 // setDisplayText,
 {
   inverse?: boolean;
-
+  className?: string;
   // setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
   // setDisplayText: Dispatch<SetStateAction<string>>;
 }) => {
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
-    <div className="gallery-column">
+    <div className={cn("gallery-column", className)}>
       {galleryArray.map((item, index) => (
         <motion.div
           key={item.id}

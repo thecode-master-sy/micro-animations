@@ -98,7 +98,7 @@ export const GallerySwitch = ({
   });
 
   return (
-    <div className="absolute   bottom-7 left-1/2 flex bg-blur px-4 py-2 md:py-[0.8vw] md:px-[1.2vw] rounded-sm z-10 -translate-x-1/2">
+    <div className="absolute md:bottom-7  bottom-10 left-1/2 flex bg-blur px-4 py-2 md:py-[0.8vw] md:px-[1.2vw] rounded-sm z-10 -translate-x-1/2">
       <button
         className={cn(
           "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "

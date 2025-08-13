@@ -7,6 +7,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { div } from "motion/react-client";
+import { InfoPannel } from "./info-pannel";
 
 gsap.registerPlugin(Flip);
 
@@ -98,35 +100,41 @@ export const GallerySwitch = ({
   });
 
   return (
-    <div className="absolute md:bottom-7  bottom-10 left-1/2 flex bg-blur px-4 py-2 md:py-[0.8vw] md:px-[1.2vw] rounded-sm z-10 -translate-x-1/2">
-      <button
-        className={cn(
-          "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
-        )}
-        onClick={() => onGridButtonClick()}
-      >
-        <span className="w-max">Grid view</span>
-        {activeLayout === "grid" && (
-          <motion.span
-            layoutId="active-item"
-            className="absolute inset-0 -z-10 bg-white rounded-md"
-          />
-        )}
-      </button>
-      <button
-        className={cn(
-          "px-2 py-1 w-fit  md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
-        )}
-        onClick={() => onSliderButtonClick()}
-      >
-        <span className="w-max"> Slider view</span>
-        {activeLayout === "slider" && (
-          <motion.span
-            layoutId="active-item"
-            className="absolute inset-0 -z-10 bg-white rounded-md"
-          />
-        )}
-      </button>
+    <div className="absolute md:bottom-7 bottom-10 w-[55%] right-4 flex justify-between z-10 ">
+      <div className="flex bg-blur rounded-sm justify-self-center px-4 py-2 md:py-[0.8vw] md:px-[1.2vw]">
+        <button
+          className={cn(
+            "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
+          )}
+          onClick={() => onGridButtonClick()}
+        >
+          <span className="w-max">Grid view</span>
+          {activeLayout === "grid" && (
+            <motion.span
+              layoutId="active-item"
+              className="absolute inset-0 -z-10 bg-white rounded-md"
+            />
+          )}
+        </button>
+        <button
+          className={cn(
+            "px-2 py-1 w-fit  md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
+          )}
+          onClick={() => onSliderButtonClick()}
+        >
+          <span className="w-max"> Slider view</span>
+          {activeLayout === "slider" && (
+            <motion.span
+              layoutId="active-item"
+              className="absolute inset-0 -z-10 bg-white rounded-md"
+            />
+          )}
+        </button>
+      </div>
+
+      <div className="ml-auto">
+        <InfoPannel />
+      </div>
     </div>
   );
 };

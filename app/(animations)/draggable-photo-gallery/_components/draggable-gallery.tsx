@@ -50,8 +50,10 @@ export const DraggableGallery = () => {
   );
 
   return (
-    <div ref={containerRef} className="w-screen h-screen overflow-hidden">
-      <InfoPannel />
+    <div
+      ref={containerRef}
+      className="w-screen h-screen sticky top-0 left-0 overflow-hidden"
+    >
       {/* <MouseFollower
         shouldShow={mouseFollowerShouldShow}
         displayText={displayText}

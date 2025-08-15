@@ -4,7 +4,7 @@ import { Move } from "lucide-react";
 
 export const InfoPannel = () => {
   return (
-    <div className="hidden md:flex gap-2 items-center bg-blur bottom-7 p-4 z-10 rounded-sm text-[14px] md:text-[1.05vw]">
+    <div className="hidden md:flex gap-2 items-center bg-blur bottom-7 p-4 z-10 rounded-sm ">
       <Move />
       <span>Drag to explore</span>
     </div>

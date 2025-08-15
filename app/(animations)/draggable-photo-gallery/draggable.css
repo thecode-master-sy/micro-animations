@@ -1,0 +1,14 @@
+/* html {
+    scrollbar-width: none;
+}
+  
+html::-webkit-scrollbar {
+    display: none;
+} */
+
+body {
+    font-size: clamp(15px, 1.1vw, 20px);
+}
+
+
+

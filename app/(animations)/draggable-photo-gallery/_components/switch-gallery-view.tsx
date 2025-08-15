@@ -104,7 +104,7 @@ export const GallerySwitch = ({
       <div className="flex bg-blur rounded-sm justify-self-center px-4 py-2 md:py-[0.8vw] md:px-[1.2vw]">
         <button
           className={cn(
-            "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative  text-black text-[14px] md:text-[1.05vw] "
+            "px-2 py-1 w-fit md:px-[1vw] md:py-[0.5vw] rounded-sm relative"
           )}
           onClick={() => onGridButtonClick()}
         >
@@ -118,7 +118,7 @@ export const GallerySwitch = ({
         </button>
         <button
           className={cn(
-            "px-2 py-1 w-fit  md:px-[1vw] md:py-[0.5vw] relative text-black  text-[14px] md:text-[1.1vw]"
+            "px-2 py-1 w-fit  md:px-[1vw] md:py-[0.5vw] relative"
           )}
           onClick={() => onSliderButtonClick()}
         >

@@ -1,13 +1,6 @@
-/* html {
-    scrollbar-width: none;
-}
-  
-html::-webkit-scrollbar {
-    display: none;
-} */
 
 body {
-    font-size: clamp(15px, 1.1vw, 20px);
+    font-size: clamp(14px, 1.05vw, 18px);
 }
 
 

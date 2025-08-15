@@ -4,6 +4,7 @@ import { Dispatch, RefObject, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { toast } from "sonner"
 
 export const DraggableGalleryColumn = ({
   inverse,
@@ -16,6 +17,9 @@ export const DraggableGalleryColumn = ({
   // setMouseFollowerShouldShow: Dispatch<SetStateAction<boolean>>;
   // setDisplayText: Dispatch<SetStateAction<string>>;
 }) => {
+  const handleClick = () => {
+    toast("This is just a demo 😀. You can choose to do something here, like scaling the image when it clicked, or showing more details. its up to you")
+  }
   const galleryArray = inverse ? gallery.slice().reverse() : gallery;
   return (
     <div className={cn("gallery-column", className)}>
@@ -33,6 +37,7 @@ export const DraggableGalleryColumn = ({
             className="gallery-image select-none cursor-pointer touch-none"
             src={item.image}
             alt={item.name}
+            onClick={() => handleClick()}
             draggable={false}
           />
         </motion.div>

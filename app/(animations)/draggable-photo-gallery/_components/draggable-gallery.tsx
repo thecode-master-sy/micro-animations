@@ -28,6 +28,7 @@ export const DraggableGallery = () => {
       const sliderRect = document.querySelector(".slider-element");
       if (!dragRect || !containerRect || !sliderRect) return;
 
+      // x and y state for both draggable and scroll
       const valueObj = {
         newX: 0,
         newY: 0

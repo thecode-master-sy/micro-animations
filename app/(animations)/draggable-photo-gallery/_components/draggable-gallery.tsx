@@ -45,9 +45,8 @@ export const DraggableGallery = () => {
       function syncPosition() {
         //@ts-expect-error
         valueObj.newX = this.x;
-
-        //@ts-expect-error
         if (drag) {
+           //@ts-expect-error
           valueObj.newY = this.y;
         }
       }

@@ -43,7 +43,10 @@ export const DraggableGallery = () => {
       const clampY = drag ? gsap.utils.clamp(maxY, 0) : () => 0
 
       function syncPosition() {
+        //@ts-expect-error
         valueObj.newX = this.x;
+
+        //@ts-expect-error
         if (drag) {
           valueObj.newY = this.y;
         }

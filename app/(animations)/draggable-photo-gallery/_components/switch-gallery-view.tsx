@@ -100,7 +100,7 @@ export const GallerySwitch = ({
   });
 
   return (
-    <div className="absolute md:bottom-7 bottom-20 md:w-[55%] right-1/2 translate-x-1/2 md:translate-x-0 md:right-4 flex justify-between z-10">
+    <div className="absolute md:bottom-7 bottom-10 md:w-[55%] right-1/2 translate-x-1/2 md:translate-x-0 md:right-4 flex justify-between z-10">
       <div className="flex bg-blur rounded-sm justify-self-center px-4 py-2 md:py-[0.8vw] md:px-[1.2vw]">
         <button
           className={cn(

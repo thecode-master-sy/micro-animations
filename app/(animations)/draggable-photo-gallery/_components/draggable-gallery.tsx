@@ -107,7 +107,7 @@ export const DraggableGallery = () => {
   return (
     <div
       ref={containerRef}
-      className="w-screen h-[100svh] overflow-hidden target-element"
+      className="w-screen h-[100svh] top-0 sticky overflow-hidden target-element"
     >
       {/* <MouseFollower
         shouldShow={mouseFollowerShouldShow}

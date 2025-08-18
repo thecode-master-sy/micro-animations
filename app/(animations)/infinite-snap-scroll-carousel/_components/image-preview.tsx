@@ -9,7 +9,7 @@ export default function ImagePreview() {
           src={gallery[0].image}
           alt={gallery[0].name}
         />
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/50 backdrop-blur-[5vw]"></div>
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/50 backdrop-blur-[3vw]"></div>
       </div>
     </div>
   );

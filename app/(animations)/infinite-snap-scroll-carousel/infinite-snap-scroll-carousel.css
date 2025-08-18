@@ -1,5 +1,6 @@
 body {
   font-size: clamp(14px, 1.05vw, 50px);
+  
 }
 
 h1 {
@@ -8,7 +9,7 @@ h1 {
 }
 
 .image-items {
-  min-width: 200px;
+  min-width: 150px;
   width: 18vw;
   aspect-ratio: 1/1;
   cursor: pointer;

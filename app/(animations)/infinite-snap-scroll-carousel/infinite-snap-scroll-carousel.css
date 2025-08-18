@@ -1,10 +1,12 @@
 body {
   font-size: clamp(14px, 1.05vw, 50px);
-  
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
 }
 
 h1 {
-  font-size: clamp(2.5em, 6vw, 10em);
+  font-size: clamp(3em, 6vw, 10em);
   letter-spacing: -0.06em;
 }
 
@@ -21,5 +23,4 @@ h1 {
 }
 
 .image-preview {
-  
 }

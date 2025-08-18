@@ -1,11 +1,8 @@
 "use client";
 import { gallery } from "../static";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Carousel() {
   const selectedIndex = 0;

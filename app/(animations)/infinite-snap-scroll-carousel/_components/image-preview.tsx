@@ -2,7 +2,7 @@ import { gallery } from "../static";
 
 export default function ImagePreview() {
   return (
-    <div className="fixed top-0 left-0 h-screen -z-10">
+    <div className="fixed top-0 left-0 h-screen right-0 -z-10">
       <div className="w-full h-full">
         <img
           className="w-full h-full image-preview"

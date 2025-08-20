@@ -10,11 +10,17 @@ h1 {
   letter-spacing: -0.06em;
 }
 
-.image-items {
+.image-items:not(:first-child) {
   min-width: 150px;
   width: 18vw;
   aspect-ratio: 1/1;
   cursor: pointer;
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+.image-items.active {
+  opacity: 1;
 }
 
 .image-items img {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import "./infinite-snap-scroll-carousel.css";
+import { ReactLenis } from "@/lib/smooth-scroll";
 
 export const metadata: Metadata = {
   title: "Infinite snap scroll carousel",

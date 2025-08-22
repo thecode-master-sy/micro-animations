@@ -14,6 +14,8 @@ const config = {
   SCROLL_SPEED: 1.75,
   LERP_FACTOR: 0.05,
   MAX_VELOCITY: 150,
+  SNAP_FORCE: 0.15, // How strong the snap animation is
+  SNAP_DELAY: 150, // Delay before snapping after user stops interacting
 };
 
 export default function Carousel() {
@@ -37,6 +39,9 @@ export default function Carousel() {
     startX: 0,
     lastX: 0,
     lastMouseX: 0,
+    snapTimeout: null,
+    currentSlideIndex: 0,
+    isSnapping: false,
   });
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -59,6 +64,67 @@ export default function Carousel() {
     }
     return 300; // Fallback
   }, []);
+
+  const getCurrentSlideIndex = useCallback(() => {
+    if (!stateRef.current.slideWidth) return 0;
+
+    const slideWidth = stateRef.current.slideWidth;
+    const currentX = stateRef.current.currentX;
+
+    // Calculate the slide index (accounting for the initial offset)
+    const rawIndex = Math.round(-currentX / slideWidth);
+
+    // Get the actual slide index in the original data array
+    const slideIndex =
+      ((rawIndex % totalSlideCount) + totalSlideCount) % totalSlideCount;
+
+    return slideIndex;
+  }, [totalSlideCount]);
+
+  const updateCurrentSlide = useCallback(() => {
+    const newIndex = getCurrentSlideIndex();
+    if (newIndex !== stateRef.current.currentSlideIndex) {
+      stateRef.current.currentSlideIndex = newIndex;
+      // if (onSlideChange) {
+      //   onSlideChange(newIndex, sliderData[newIndex]);
+      // }
+    }
+  }, [getCurrentSlideIndex, gallery]);
+
+  const calculateNearestSnapPosition = useCallback(() => {
+    const slideWidth = stateRef.current.slideWidth;
+    const currentX = stateRef.current.currentX;
+
+    // Calculate which slide index we're closest to
+    const slideIndex = Math.round(-currentX / slideWidth);
+
+    // Calculate the snap position
+    const snapPosition = -slideIndex * slideWidth;
+
+    return snapPosition;
+  }, []);
+
+  const initiateSnap = useCallback(() => {
+    // Clear any existing snap timeout
+    if (stateRef.current.snapTimeout) {
+      clearTimeout(stateRef.current.snapTimeout);
+    }
+
+    // Set timeout for snapping
+    //@ts-expect-error
+    stateRef.current.snapTimeout = setTimeout(() => {
+      if (!stateRef.current.isDragging && !stateRef.current.isSnapping) {
+        const snapPosition = calculateNearestSnapPosition();
+        const distance = Math.abs(snapPosition - stateRef.current.currentX);
+
+        // Only snap if we're not already very close
+        if (distance > 1) {
+          stateRef.current.targetX = snapPosition;
+          stateRef.current.isSnapping = true;
+        }
+      }
+    }, config.SNAP_DELAY);
+  }, [calculateNearestSnapPosition]);
 
   useEffect(() => {
     const startOffset = -(totalSlideCount * stateRef.current.slideWidth * 2);
@@ -126,6 +192,28 @@ export default function Carousel() {
       !isSlowEnough ||
       !hasBeenStillLongEnough;
     stateRef.current.isMoving = isMoving;
+
+    // Update current slide index
+    updateCurrentSlide();
+
+    // Check if snapping animation is complete
+    if (stateRef.current.isSnapping) {
+      const distanceToTarget = Math.abs(
+        stateRef.current.targetX - stateRef.current.currentX
+      );
+      if (distanceToTarget < 1 && isSlowEnough) {
+        stateRef.current.isSnapping = false;
+      }
+    }
+
+    if (
+      !stateRef.current.isDragging &&
+      !stateRef.current.isSnapping &&
+      isSlowEnough &&
+      hasBeenStillLongEnough
+    ) {
+      initiateSnap();
+    }
   }, []);
 
   const animate = useCallback(() => {
@@ -172,6 +260,8 @@ export default function Carousel() {
     stateRef.current.targetX -= clampedScroll;
 
     stateRef.current.lastScrollTime = Date.now();
+
+    initiateSnap(); 
   }, []);
 
   useEffect(() => {
@@ -293,6 +383,7 @@ export default function Carousel() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseUp}
         onDragStart={(e) => e.preventDefault()}
+      
       >
         {slides}
       </div>

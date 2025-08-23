@@ -17,8 +17,13 @@ const config = {
   SNAP_LERP_FACTOR: 0.3,
 };
 
-export default function Carousel() {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+export default function Carousel({
+  currentSlideIndex,
+  setCurrentSlideIndex,
+}: {
+  currentSlideIndex: number;
+  setCurrentSlideIndex: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const stateRef = useRef({
     currentX: 0,
     targetX: 0,

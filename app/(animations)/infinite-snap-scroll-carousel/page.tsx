@@ -21,6 +21,7 @@ export default function InfiniteSnapScrollCarousel() {
       wheelMultiplier: 2,
       infinite: true,
       syncTouch: true,
+      touchMultiplier: 2,
     });
 
     // Listen for the scroll event and log the event data

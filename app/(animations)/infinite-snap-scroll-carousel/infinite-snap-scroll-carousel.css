@@ -9,6 +9,11 @@ h1 {
   letter-spacing: -0.06em;
 }
 
+.scroll-container {
+  scrollbar-width: none;
+}
+
+
 .image-items {
   min-width: 250px;
   width: 19vw;

@@ -12,19 +12,15 @@ import { useRef, useEffect, useState, useCallback } from "react";
 
 const config = {
   SCROLL_SPEED: 1.75,
-  LERP_FACTOR: 0.05,
+  LERP_FACTOR: 0.08,
   MAX_VELOCITY: 150,
+  SNAP_LERP_FACTOR: 0.3,
 };
 
 export default function Carousel() {
-  //drag for mobile
-  //scroll on the y and x direction for desktop and mobile
-  //snaping
-  //onClick it selects and moves to the clicked item.
-  //infinite scroll
-
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const stateRef = useRef({
-    currentX: 0, //tracks the current x position, this is the value we are actually animating
+    currentX: 0,
     targetX: 0,
     slideWidth: 300,
     lastScrollTime: Date.now(),
@@ -37,10 +33,13 @@ export default function Carousel() {
     startX: 0,
     lastX: 0,
     lastMouseX: 0,
+    hasSnapped: false,
+    prevIsMoving: false,
+    isSnapping: false,
   });
 
   const trackRef = useRef<HTMLDivElement>(null);
-  const slideRef = useRef(null); // Reference to measure actual slide width
+  const slideRef = useRef(null);
   const animationFrameRef = useRef(0);
   const totalSlideCount = gallery.length;
   const copies = 6;
@@ -57,40 +56,47 @@ export default function Carousel() {
       stateRef.current.slideWidth = slideWidth + gap;
       return slideWidth + gap;
     }
-    return 300; // Fallback
+    return 300;
   }, []);
 
   useEffect(() => {
     const startOffset = -(totalSlideCount * stateRef.current.slideWidth * 2);
     stateRef.current.currentX = startOffset;
     stateRef.current.targetX = startOffset;
-    // Apply initial position
     if (trackRef.current) {
       trackRef.current.style.transform = `translate3d(${startOffset}px, 0, 0)`;
     }
   }, [totalSlideCount]);
 
-  // Recalculate width when slides are rendered
   useEffect(() => {
     if (slideRef.current && gallery.length > 0) {
-      // Use RAF to ensure DOM is painted
-      requestAnimationFrame(() => {
-        calculateSlideWidth();
-
-        const startOffset = -(
-          totalSlideCount *
-          stateRef.current.slideWidth *
-          2
-        );
-        stateRef.current.currentX = startOffset;
-        stateRef.current.targetX = startOffset;
-
-        if (trackRef.current) {
-          trackRef.current.style.transform = `translate3d(${startOffset}px, 0, 0)`;
-        }
-      });
+      calculateSlideWidth();
+      const startOffset = -(totalSlideCount * stateRef.current.slideWidth * 2);
+      stateRef.current.currentX = startOffset;
+      stateRef.current.targetX = startOffset;
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${startOffset}px, 0, 0)`;
+      }
     }
   }, [gallery, calculateSlideWidth, totalSlideCount]);
+
+  const snapToNearestSlide = useCallback(() => {
+    const sequenceWidth = stateRef.current.slideWidth * totalSlideCount;
+    const normalizedX = stateRef.current.currentX % sequenceWidth;
+    const slideIndex = Math.round(normalizedX / stateRef.current.slideWidth);
+    console.log(gallery[slideIndex]);
+    const snapX = slideIndex * stateRef.current.slideWidth;
+
+    // Adjust targetX to snap to the nearest slide, accounting for the infinite loop
+    stateRef.current.targetX =
+      stateRef.current.currentX - (normalizedX - snapX);
+    stateRef.current.hasSnapped = true;
+    stateRef.current.isSnapping = true;
+
+    const displayIndex =
+      ((slideIndex % totalSlideCount) + totalSlideCount) % totalSlideCount;
+    setCurrentSlideIndex(displayIndex); // Update the current slide index
+  }, [totalSlideCount]);
 
   const updateSlidePositions = useCallback(() => {
     if (!trackRef.current) return;
@@ -126,13 +132,32 @@ export default function Carousel() {
       !isSlowEnough ||
       !hasBeenStillLongEnough;
     stateRef.current.isMoving = isMoving;
-  }, []);
+
+    // Trigger snapping when the carousel stops moving
+    if (
+      !stateRef.current.isMoving &&
+      stateRef.current.prevIsMoving &&
+      !stateRef.current.hasSnapped
+    ) {
+      snapToNearestSlide();
+    }
+
+    if (
+      stateRef.current.isSnapping &&
+      Math.abs(stateRef.current.currentX - stateRef.current.targetX) < 0.1
+    ) {
+      stateRef.current.isSnapping = false;
+    }
+
+    stateRef.current.prevIsMoving = stateRef.current.isMoving;
+  }, [snapToNearestSlide]);
 
   const animate = useCallback(() => {
-    // Smooth interpolation toward target position
+    const lerpFactor = stateRef.current.isSnapping
+      ? config.SNAP_LERP_FACTOR
+      : config.LERP_FACTOR;
     stateRef.current.currentX +=
-      (stateRef.current.targetX - stateRef.current.currentX) *
-      config.LERP_FACTOR;
+      (stateRef.current.targetX - stateRef.current.currentX) * lerpFactor;
 
     updateMovingState();
     updateSlidePositions();
@@ -150,12 +175,9 @@ export default function Carousel() {
   }, [animate]);
 
   const handleDragStart = useCallback(() => {
-    // stateRef.current.dragDistance = 0;
-    // stateRef.current.hasActuallyDragged = false;
-    // stateRef.current.lastScrollTime = Date.now();
+    stateRef.current.hasSnapped = false;
   }, []);
 
-  // Wheel handler
   const handleWheel = useCallback((e: WheelEvent) => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
       return;
@@ -170,15 +192,18 @@ export default function Carousel() {
     );
 
     stateRef.current.targetX -= clampedScroll;
-
     stateRef.current.lastScrollTime = Date.now();
+    stateRef.current.hasSnapped = false;
   }, []);
 
   useEffect(() => {
     addEventListener("wheel", handleWheel, {
       passive: false,
     });
-  }, []);
+    return () => {
+      removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
 
   const handleTouchStart = useCallback(
     (e: React.TouchEvent<HTMLDivElement>) => {
@@ -188,6 +213,7 @@ export default function Carousel() {
       stateRef.current.dragDistance = 0;
       stateRef.current.hasActuallyDragged = false;
       stateRef.current.lastScrollTime = Date.now();
+      stateRef.current.hasSnapped = false;
     },
     []
   );
@@ -224,6 +250,7 @@ export default function Carousel() {
     stateRef.current.dragDistance = 0;
     stateRef.current.hasActuallyDragged = false;
     stateRef.current.lastScrollTime = Date.now();
+    stateRef.current.hasSnapped = false;
   }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -252,19 +279,27 @@ export default function Carousel() {
     }, 100);
   }, []);
 
-  // Create slides array
   const slides = Array.from({ length: totalSlides }, (_, i) => {
     const dataIndex = i % totalSlideCount;
     const slideData = gallery[dataIndex];
 
+   
+
     if (!slideData) return null;
 
     return (
-      <div
+      <motion.div
+        animate={
+          currentSlideIndex == dataIndex
+            ? {
+                filter: "grayscale(0%)",
+                opacity: 1,
+              }
+            : undefined
+        }
         key={i}
-        ref={i === 0 ? slideRef : undefined} // Only ref the first slide for measurement
-        className="image-items "
-        // onClick={(e) => handleSlideClick(e, i)}
+        ref={i === 0 ? slideRef : undefined}
+        className="image-items"
       >
         <Image
           width={150}
@@ -274,16 +309,16 @@ export default function Carousel() {
           className="select-none"
           draggable={false}
         />
-      </div>
+      </motion.div>
     );
   });
 
-  useEffect(() => {}, []);
+  console.log(currentSlideIndex);
 
   return (
     <div className="w-full fixed bottom-4 left-0 right-0 overflow-hidden carousel-container">
       <div
-        className="w-max flex carousel px-4 gap-4 md:gap-[1.05vw] "
+        className="w-max flex carousel px-4 gap-4 md:gap-[1.05vw]"
         ref={trackRef}
         onTouchMove={handleTouchMove}
         onTouchStart={handleTouchStart}

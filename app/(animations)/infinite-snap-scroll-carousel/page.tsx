@@ -6,10 +6,10 @@ import Carousel from "./_components/carousel";
 
 export default function InfiniteSnapScrollCarousel() {
   return (
-    <div className="h-[100svh] w-screen overflow-hidden flex flex-col text-white">
+    <div className="h-screen w-screen overflow-hidden flex flex-col text-white">
       <Nav />
       <ImagePreview />
-      <h1 className="uppercase text-center md:mt-[5vw] my-auto font-bold">
+      <h1 className="uppercase text-center md:mt-[5vw] mt-auto mb-10 font-bold">
         Project One
       </h1>
       <Carousel />

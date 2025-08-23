@@ -1,7 +1,7 @@
 body {
   font-size: clamp(14px, 1.05vw, 50px);
   width: 100vw;
-  height: 100svh;
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -15,15 +15,8 @@ h1 {
   width: 19vw;
   aspect-ratio: 1/1;
   cursor: pointer;
-}
-
-.image-items {
   opacity: 0.5;
   filter: grayscale(100%);
-}
-
-.image-items.active {
-  opacity: 1;
 }
 
 .image-items img {

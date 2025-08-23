@@ -197,7 +197,7 @@ export default function Carousel() {
       return;
     }
 
-    const deltaX = (e.touches[0].clientX - stateRef.current.startX) * 2;
+    const deltaX = (e.touches[0].clientX - stateRef.current.startX) * 6;
     stateRef.current.targetX = stateRef.current.lastX + deltaX;
 
     stateRef.current.dragDistance = Math.abs(deltaX);

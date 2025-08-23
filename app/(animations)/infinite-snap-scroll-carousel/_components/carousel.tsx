@@ -80,6 +80,27 @@ export default function Carousel() {
     }
   }, [gallery, calculateSlideWidth, totalSlideCount]);
 
+  const handleSlideClick = useCallback(
+    (slideIndex: number) => {
+      const sequenceWidth = stateRef.current.slideWidth * totalSlideCount;
+      // Calculate the position to align the clicked slide to the left edge
+      const targetSlideIndex = slideIndex % totalSlideCount;
+      const sequenceOffset = Math.floor(slideIndex / totalSlideCount);
+      const targetX = -(
+        targetSlideIndex * stateRef.current.slideWidth +
+        sequenceOffset * sequenceWidth
+      );
+
+      stateRef.current.targetX = targetX;
+      stateRef.current.lastScrollTime = Date.now();
+
+      // Set the current slide index to the clicked slide's gallery index
+      const displayIndex = targetSlideIndex;
+      setCurrentSlideIndex(displayIndex);
+    },
+    [totalSlideCount]
+  );
+
   const snapToNearestSlide = useCallback(() => {
     const sequenceWidth = stateRef.current.slideWidth * totalSlideCount;
     const normalizedX = stateRef.current.currentX % sequenceWidth;
@@ -300,6 +321,7 @@ export default function Carousel() {
         key={i}
         ref={i === 0 ? slideRef : undefined}
         className="image-items"
+        onClick={() => handleSlideClick(i)}
       >
         <Image
           width={150}

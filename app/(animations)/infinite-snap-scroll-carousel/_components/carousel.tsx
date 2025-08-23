@@ -9,6 +9,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import { useRef, useEffect, useState, useCallback } from "react";
+import { MouseFollower } from "../../draggable-photo-gallery/_components/mouse-follower";
 
 const config = {
   SCROLL_SPEED: 1.75,
@@ -49,6 +50,7 @@ export default function Carousel({
   const totalSlideCount = gallery.length;
   const copies = 6;
   const totalSlides = totalSlideCount * copies;
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
 
   const calculateSlideWidth = useCallback(() => {
     if (slideRef.current && trackRef.current) {
@@ -343,7 +345,10 @@ export default function Carousel({
   console.log(currentSlideIndex);
 
   return (
-    <div className="w-full fixed bottom-4 left-0 right-0 overflow-hidden carousel-container">
+    <div
+      ref={carouselContainerRef}
+      className="w-full fixed bottom-4 left-0 right-0 overflow-hidden carousel-container"
+    >
       <div
         className="w-max flex carousel px-4 gap-4 md:gap-[1.05vw]"
         ref={trackRef}

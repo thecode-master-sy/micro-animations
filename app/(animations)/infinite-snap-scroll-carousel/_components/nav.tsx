@@ -1,7 +1,7 @@
 export default function Nav() {
   return (
     <div className="uppercase p-4 flex justify-between tracking-tighter">
-      <div>Showcase by thecodemaster</div>
+      <div>Showcase</div>
 
       <ul className=" gap-3 hidden md:flex">
         <li>Home</li>

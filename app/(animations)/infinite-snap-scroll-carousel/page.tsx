@@ -6,6 +6,7 @@ import Carousel from "./_components/carousel";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { gallery } from "./static";
+import { MouseFollower } from "../draggable-photo-gallery/_components/mouse-follower";
 
 export default function InfiniteSnapScrollCarousel() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -32,6 +33,11 @@ export default function InfiniteSnapScrollCarousel() {
       <Carousel
         currentSlideIndex={currentSlideIndex}
         setCurrentSlideIndex={setCurrentSlideIndex}
+      />
+      <MouseFollower
+        shouldShow={true}
+        displayText="View Project"
+        className="text-white bg-gray-800"
       />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { gallery } from "../static";
 import { motion, AnimatePresence } from "motion/react";
+import { Image } from "next/image";
 
 export default function ImagePreview({
   currentSlideIndex,
@@ -12,8 +13,10 @@ export default function ImagePreview({
     <div className="fixed top-0 left-0 h-screen right-0 bg-black -z-10">
       <div className="w-full h-full relative">
         <AnimatePresence initial={false} mode="wait">
-          <motion.img
+          <motion.Image
             key={currentSlideIndex}
+            width={250}
+            height={250}
             className="w-full h-full image-preview"
             src={gallery[currentSlideIndex]?.image || ""}
             alt={gallery[currentSlideIndex]?.name || "Unknown"}

@@ -84,18 +84,20 @@ export default function Carousel() {
     const sequenceWidth = stateRef.current.slideWidth * totalSlideCount;
     const normalizedX = stateRef.current.currentX % sequenceWidth;
     const slideIndex = Math.round(normalizedX / stateRef.current.slideWidth);
-    console.log(gallery[slideIndex]);
     const snapX = slideIndex * stateRef.current.slideWidth;
 
-    // Adjust targetX to snap to the nearest slide, accounting for the infinite loop
     stateRef.current.targetX =
       stateRef.current.currentX - (normalizedX - snapX);
     stateRef.current.hasSnapped = true;
     stateRef.current.isSnapping = true;
 
+    // Calculate the display index (0 to totalSlideCount - 1) for the slide closest to the left edge
+    const adjustedIndex = Math.round(
+      -stateRef.current.targetX / stateRef.current.slideWidth
+    );
     const displayIndex =
-      ((slideIndex % totalSlideCount) + totalSlideCount) % totalSlideCount;
-    setCurrentSlideIndex(displayIndex); // Update the current slide index
+      ((adjustedIndex % totalSlideCount) + totalSlideCount) % totalSlideCount;
+    setCurrentSlideIndex(displayIndex);
   }, [totalSlideCount]);
 
   const updateSlidePositions = useCallback(() => {
@@ -223,7 +225,7 @@ export default function Carousel() {
       return;
     }
 
-    const deltaX = (e.touches[0].clientX - stateRef.current.startX) * 6;
+    const deltaX = (e.touches[0].clientX - stateRef.current.startX) * 3;
     stateRef.current.targetX = stateRef.current.lastX + deltaX;
 
     stateRef.current.dragDistance = Math.abs(deltaX);
@@ -282,8 +284,6 @@ export default function Carousel() {
   const slides = Array.from({ length: totalSlides }, (_, i) => {
     const dataIndex = i % totalSlideCount;
     const slideData = gallery[dataIndex];
-
-   
 
     if (!slideData) return null;
 

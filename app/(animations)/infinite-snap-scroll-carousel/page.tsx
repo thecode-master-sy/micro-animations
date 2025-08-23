@@ -9,7 +9,7 @@ export default function InfiniteSnapScrollCarousel() {
     <div className="h-screen w-screen overflow-hidden flex flex-col text-white">
       <Nav />
       <ImagePreview />
-      <h1 className="uppercase text-center md:mt-[5vw] mt-auto mb-10 font-bold">
+      <h1 className="uppercase text-center md:mt-[5vw] mt-[200px]  font-bold">
         Project One
       </h1>
       <Carousel />

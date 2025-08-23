@@ -20,6 +20,7 @@ export default function InfiniteSnapScrollCarousel() {
       gestureOrientation: "both",
       wheelMultiplier: 2,
       infinite: true,
+      syncTouch: true,
     });
 
     // Listen for the scroll event and log the event data

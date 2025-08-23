@@ -8,7 +8,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
-import { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { MouseFollower } from "../../draggable-photo-gallery/_components/mouse-follower";
 
 const config = {
@@ -21,9 +21,11 @@ const config = {
 export default function Carousel({
   currentSlideIndex,
   setCurrentSlideIndex,
+  setIsHovering,
 }: {
   currentSlideIndex: number;
   setCurrentSlideIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIsHovering: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const stateRef = useRef({
     currentX: 0,
@@ -347,6 +349,8 @@ export default function Carousel({
   return (
     <div
       ref={carouselContainerRef}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
       className="w-full fixed bottom-4 left-0 right-0 overflow-hidden carousel-container"
     >
       <div

@@ -10,6 +10,7 @@ import { MouseFollower } from "../draggable-photo-gallery/_components/mouse-foll
 
 export default function InfiniteSnapScrollCarousel() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col text-white">
       <Nav />
@@ -33,11 +34,12 @@ export default function InfiniteSnapScrollCarousel() {
       <Carousel
         currentSlideIndex={currentSlideIndex}
         setCurrentSlideIndex={setCurrentSlideIndex}
+        setIsHovering={setIsHovering}
       />
       <MouseFollower
-        shouldShow={true}
+        shouldShow={isHovering}
         displayText="View Project"
-        className="text-white bg-gray-800"
+        className="text-white bg-[#bababa33] backdrop-blur-md cursor-pointer"
       />
     </div>
   );

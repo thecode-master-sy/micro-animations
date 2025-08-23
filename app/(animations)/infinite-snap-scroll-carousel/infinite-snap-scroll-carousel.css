@@ -2,6 +2,7 @@ body {
   font-size: clamp(14px, 1.05vw, 50px);
   width: 100vw;
   height: 100svh;
+  overflow-y: hidden;
 }
 
 h1 {
@@ -12,7 +13,6 @@ h1 {
 .scroll-container {
   scrollbar-width: none;
 }
-
 
 .image-items {
   min-width: 250px;

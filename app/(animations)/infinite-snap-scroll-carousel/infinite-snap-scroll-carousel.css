@@ -2,16 +2,12 @@ body {
   font-size: clamp(14px, 1.05vw, 50px);
   width: 100vw;
   height: 100svh;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 h1 {
   font-size: clamp(3em, 6vw, 10em);
   letter-spacing: -0.06em;
-}
-
-.scroll-container {
-  scrollbar-width: none;
 }
 
 .image-items {
